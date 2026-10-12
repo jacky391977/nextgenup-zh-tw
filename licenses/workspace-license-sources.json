@@ -1,0 +1,376 @@
+[
+  {
+    "name": "alloc-stdlib",
+    "version": "0.2.4",
+    "repository": "https://github.com/dropbox/rust-alloc-no-stdlib",
+    "license": "BSD-3-Clause",
+    "authors": [
+      "Daniel Reiter Horn <danielrh@dropbox.com>"
+    ],
+    "git_sha": "ae42d22078b98549e987d2f03d12df7b984fde47"
+  },
+  {
+    "name": "block2",
+    "version": "0.6.2",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "MIT",
+    "authors": [
+      "Mads Marquart <mads@marquart.dk>"
+    ],
+    "git_sha": "b4167b582b2f75f9a1be75495c41b765344fd03c"
+  },
+  {
+    "name": "defmt-parser",
+    "version": "1.0.0",
+    "repository": "https://github.com/knurling-rs/defmt",
+    "license": "MIT OR Apache-2.0",
+    "authors": [
+      "The Knurling-rs developers"
+    ],
+    "git_sha": "4a8cdb44891ed57b8ff5a023b6bec7137c48708f"
+  },
+  {
+    "name": "dispatch2",
+    "version": "0.3.1",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "authors": [
+      "Mads Marquart <mads@marquart.dk>",
+      "Mary <mary@mary.zone>"
+    ],
+    "git_sha": "8852b424193ca41602281b3d7540d7c8ed51e49a"
+  },
+  {
+    "name": "dlopen2",
+    "version": "0.8.2",
+    "repository": "https://github.com/OpenByteDev/dlopen2",
+    "license": "MIT",
+    "authors": [
+      "Szymon Wieloch <szymon.wieloch@gmail.com>",
+      "Ahmed Masud <ahmed.masud@saf.ai>",
+      "OpenByte <development.openbyte@gmail.com>"
+    ],
+    "git_sha": "cc80e4a0a90d499b677fdf7743699b4b3a43a989"
+  },
+  {
+    "name": "dlopen2_derive",
+    "version": "0.4.3",
+    "repository": "https://github.com/OpenByteDev/dlopen2",
+    "license": "MIT",
+    "authors": [
+      "Szymon Wieloch <szymon.wieloch@gmail.com>",
+      "OpenByte <development.openbyte@gmail.com>"
+    ],
+    "git_sha": "cc80e4a0a90d499b677fdf7743699b4b3a43a989"
+  },
+  {
+    "name": "jni-sys-macros",
+    "version": "0.4.1",
+    "repository": "https://github.com/jni-rs/jni-sys",
+    "license": "MIT OR Apache-2.0",
+    "authors": [
+      "Robert Bragg <robert@sixbynine.org>"
+    ],
+    "git_sha": "64d77b7a5f119d7b55b4e2c169a4668067ff59e6"
+  },
+  {
+    "name": "libappindicator-sys",
+    "version": "0.9.0",
+    "repository": null,
+    "license": "Apache-2.0 OR MIT",
+    "authors": null,
+    "git_sha": "eafd1e3682a1247f595410266091e9684021cb6f"
+  },
+  {
+    "name": "ndk",
+    "version": "0.9.0",
+    "repository": "https://github.com/rust-mobile/ndk",
+    "license": "MIT OR Apache-2.0",
+    "authors": [
+      "The Rust Mobile contributors"
+    ],
+    "git_sha": "49bbbba16c58ff63cb8a0ad0eca5a9fb7ecaec25"
+  },
+  {
+    "name": "ndk-sys",
+    "version": "0.6.0+11769913",
+    "repository": "https://github.com/rust-mobile/ndk",
+    "license": "MIT OR Apache-2.0",
+    "authors": [
+      "The Rust Windowing contributors"
+    ],
+    "git_sha": "49bbbba16c58ff63cb8a0ad0eca5a9fb7ecaec25"
+  },
+  {
+    "name": "objc2",
+    "version": "0.6.4",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "MIT",
+    "authors": [
+      "Mads Marquart <mads@marquart.dk>"
+    ],
+    "git_sha": "8852b424193ca41602281b3d7540d7c8ed51e49a"
+  },
+  {
+    "name": "objc2-app-kit",
+    "version": "0.3.2",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "authors": null,
+    "git_sha": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b"
+  },
+  {
+    "name": "objc2-cloud-kit",
+    "version": "0.3.2",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "authors": null,
+    "git_sha": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b"
+  },
+  {
+    "name": "objc2-core-data",
+    "version": "0.3.2",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "authors": null,
+    "git_sha": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b"
+  },
+  {
+    "name": "objc2-core-foundation",
+    "version": "0.3.2",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "authors": null,
+    "git_sha": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b"
+  },
+  {
+    "name": "objc2-core-graphics",
+    "version": "0.3.2",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "authors": null,
+    "git_sha": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b"
+  },
+  {
+    "name": "objc2-core-image",
+    "version": "0.3.2",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "authors": null,
+    "git_sha": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b"
+  },
+  {
+    "name": "objc2-core-location",
+    "version": "0.3.2",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "authors": null,
+    "git_sha": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b"
+  },
+  {
+    "name": "objc2-core-text",
+    "version": "0.3.2",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "authors": null,
+    "git_sha": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b"
+  },
+  {
+    "name": "objc2-encode",
+    "version": "4.1.0",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "MIT",
+    "authors": [
+      "Mads Marquart <mads@marquart.dk>"
+    ],
+    "git_sha": "8d214f5477365ffcbcbb7de058c86ed9a518efb7"
+  },
+  {
+    "name": "objc2-exception-helper",
+    "version": "0.1.1",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "authors": [
+      "Mads Marquart <mads@marquart.dk>"
+    ],
+    "git_sha": "8d214f5477365ffcbcbb7de058c86ed9a518efb7"
+  },
+  {
+    "name": "objc2-foundation",
+    "version": "0.3.2",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "MIT",
+    "authors": null,
+    "git_sha": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b"
+  },
+  {
+    "name": "objc2-io-surface",
+    "version": "0.3.2",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "authors": null,
+    "git_sha": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b"
+  },
+  {
+    "name": "objc2-quartz-core",
+    "version": "0.3.2",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "authors": null,
+    "git_sha": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b"
+  },
+  {
+    "name": "objc2-ui-kit",
+    "version": "0.3.2",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "authors": null,
+    "git_sha": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b"
+  },
+  {
+    "name": "objc2-user-notifications",
+    "version": "0.3.2",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "authors": null,
+    "git_sha": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b"
+  },
+  {
+    "name": "objc2-web-kit",
+    "version": "0.3.2",
+    "repository": "https://github.com/madsmtm/objc2",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "authors": null,
+    "git_sha": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b"
+  },
+  {
+    "name": "r-efi",
+    "version": "5.3.0",
+    "repository": "https://github.com/r-efi/r-efi",
+    "license": "MIT OR Apache-2.0 OR LGPL-2.1-or-later",
+    "authors": null,
+    "git_sha": "97b55bed1c2c91dcbf787674849f05337ff80b33"
+  },
+  {
+    "name": "r-efi",
+    "version": "6.0.0",
+    "repository": "https://github.com/r-efi/r-efi",
+    "license": "MIT OR Apache-2.0 OR LGPL-2.1-or-later",
+    "authors": null,
+    "git_sha": "7e1b0322d31d625f81a5656096330934f9cd835d"
+  },
+  {
+    "name": "selectors",
+    "version": "0.36.1",
+    "repository": "https://github.com/servo/stylo",
+    "license": "MPL-2.0",
+    "authors": [
+      "The Servo Project Developers"
+    ],
+    "git_sha": "635e1a19d02960588a00e189bd4bd5bdb150ec3d"
+  },
+  {
+    "name": "tauri-plugin",
+    "version": "2.6.3",
+    "repository": "https://github.com/tauri-apps/tauri",
+    "license": "Apache-2.0 OR MIT",
+    "authors": [
+      "Tauri Programme within The Commons Conservancy"
+    ],
+    "git_sha": "6f6ab1207bb3923c2721fbc67d2fdb1c8deb0c7a"
+  },
+  {
+    "name": "unic-char-property",
+    "version": "0.9.0",
+    "repository": "https://github.com/open-i18n/rust-unic/",
+    "license": "MIT/Apache-2.0",
+    "authors": [
+      "The UNIC Project Developers"
+    ],
+    "git_sha": "5878605364af97a3358368a6eaef02104af2e016"
+  },
+  {
+    "name": "unic-char-range",
+    "version": "0.9.0",
+    "repository": "https://github.com/open-i18n/rust-unic/",
+    "license": "MIT/Apache-2.0",
+    "authors": [
+      "The UNIC Project Developers"
+    ],
+    "git_sha": "5878605364af97a3358368a6eaef02104af2e016"
+  },
+  {
+    "name": "unic-common",
+    "version": "0.9.0",
+    "repository": "https://github.com/open-i18n/rust-unic/",
+    "license": "MIT/Apache-2.0",
+    "authors": [
+      "The UNIC Project Developers"
+    ],
+    "git_sha": "5878605364af97a3358368a6eaef02104af2e016"
+  },
+  {
+    "name": "unic-ucd-ident",
+    "version": "0.9.0",
+    "repository": "https://github.com/open-i18n/rust-unic/",
+    "license": "MIT/Apache-2.0",
+    "authors": [
+      "The UNIC Project Developers"
+    ],
+    "git_sha": "8a6ce83063d90b91ae2ce59eddb803edd393fca9"
+  },
+  {
+    "name": "unic-ucd-version",
+    "version": "0.9.0",
+    "repository": "https://github.com/open-i18n/rust-unic/",
+    "license": "MIT/Apache-2.0",
+    "authors": [
+      "The UNIC Project Developers"
+    ],
+    "git_sha": "5878605364af97a3358368a6eaef02104af2e016"
+  },
+  {
+    "name": "webview2-com",
+    "version": "0.38.2",
+    "repository": "https://github.com/wravery/webview2-rs",
+    "license": "MIT",
+    "authors": null,
+    "git_sha": "b74dc5e2b394044bea5191052868ce7a106c202c"
+  },
+  {
+    "name": "webview2-com-macros",
+    "version": "0.8.1",
+    "repository": "https://github.com/wravery/webview2-rs",
+    "license": "MIT",
+    "authors": null,
+    "git_sha": "dffa41a8a46d3f5565eefbff2de57d38d399f158"
+  },
+  {
+    "name": "webview2-com-sys",
+    "version": "0.38.2",
+    "repository": "https://github.com/wravery/webview2-rs",
+    "license": "MIT",
+    "authors": null,
+    "git_sha": "b74dc5e2b394044bea5191052868ce7a106c202c"
+  },
+  {
+    "name": "winapi-i686-pc-windows-gnu",
+    "version": "0.4.0",
+    "repository": "https://github.com/retep998/winapi-rs",
+    "license": "MIT/Apache-2.0",
+    "authors": [
+      "Peter Atashian <retep998@gmail.com>"
+    ],
+    "git_sha": null
+  },
+  {
+    "name": "winapi-x86_64-pc-windows-gnu",
+    "version": "0.4.0",
+    "repository": "https://github.com/retep998/winapi-rs",
+    "license": "MIT/Apache-2.0",
+    "authors": [
+      "Peter Atashian <retep998@gmail.com>"
+    ],
+    "git_sha": null
+  }
+]

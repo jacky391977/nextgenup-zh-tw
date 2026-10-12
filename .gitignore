@@ -52,3 +52,4 @@ launch-kit/
 # Distribution build outputs and collected dependency licenses
 release-assets/
 licenses/python/
+release-public-verified/
