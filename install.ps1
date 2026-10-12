@@ -5,6 +5,7 @@
     [switch]$Doctor
 )
 $ErrorActionPreference = 'Stop'
+$ProgressPreference = 'SilentlyContinue'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $Tag = 'v1.2.0-zh.4'
 $Base = "https://github.com/jacky391977/nextgenup-zh-tw/releases/download/$Tag"
@@ -15,7 +16,8 @@ $Marker = Join-Path $InstallDir 'nextgenup-zh-tw.json'
 $Exe = Join-Path $InstallDir 'nextgenup.exe'
 function Download([string]$Url, [string]$Path) {
     if (-not $Url.StartsWith('https://')) { throw '僅允許 HTTPS 下載。' }
-    Invoke-WebRequest -UseBasicParsing -Uri $Url -OutFile $Path
+    Write-Host "正在下載：$Url"
+    Invoke-WebRequest -UseBasicParsing -Uri $Url -OutFile $Path -TimeoutSec 600
 }
 function Health {
     try {
@@ -95,11 +97,18 @@ if (-not $Installed) {
         Copy-Item (Join-Path $Patch 'manifest.json') $Marker
         Copy-Item (Join-Path $Patch 'LICENSE') (Join-Path $InstallDir 'LICENSE-NextGenUp')
         Copy-Item (Join-Path $Patch 'THIRD_PARTY_NOTICES.md') $InstallDir
-        $Shell = New-Object -ComObject WScript.Shell
-        $Shortcut = $Shell.CreateShortcut((Join-Path ([Environment]::GetFolderPath('Desktop')) 'NextGenUp 繁體中文版.lnk'))
-        $Shortcut.TargetPath = $Exe
-        $Shortcut.WorkingDirectory = $InstallDir
-        $Shortcut.Save()
+        try {
+            $Desktop = [Environment]::GetFolderPath('Desktop')
+            if (-not $Desktop) { throw '此使用者沒有桌面資料夾。' }
+            [IO.Directory]::CreateDirectory($Desktop) | Out-Null
+            $Shell = New-Object -ComObject WScript.Shell
+            $Shortcut = $Shell.CreateShortcut((Join-Path $Desktop 'NextGenUp 繁體中文版.lnk'))
+            $Shortcut.TargetPath = $Exe
+            $Shortcut.WorkingDirectory = $InstallDir
+            $Shortcut.Save()
+        } catch {
+            Write-Warning "桌面捷徑未建立；仍可從開始選單或安裝位置開啟：$Exe"
+        }
         Write-Host "繁體中文版已安裝：$Exe"
         if ($Backup) { Write-Host "上一版備份：$Backup" }
     } catch {
