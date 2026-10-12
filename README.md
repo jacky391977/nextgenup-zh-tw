@@ -1,5 +1,7 @@
 # NextGenUp 繁體中文版
 
+> 發布準備中：目前原始碼與安裝腳本已公開，跨平台 Release 尚待 GitHub 建置驗證，資產發布前請勿交付客戶安裝。
+
 免費開源的照片、影片與音訊處理程式，提供繁體中文介面、照片拖曳比對與內建教學彈窗。這是以 [NextGenUp 1.2.0](https://github.com/riponcm/nextgenUp/tree/16e01bb1e34baf7feb62dc70172dc5a572d3b7e8) 為基礎的社群版本，並非原作者官方中文版。
 
 ## 最簡單：交給 Codex 安裝
