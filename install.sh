@@ -91,6 +91,10 @@ else
   cp "$WORK/patch/THIRD_PARTY_NOTICES.md" "$STAGE/Contents/Resources/THIRD_PARTY_NOTICES.md"
   /usr/libexec/PlistBuddy -c 'Set :CFBundleDevelopmentRegion zh_TW' "$STAGE/Contents/Info.plist"
   /usr/libexec/PlistBuddy -c "Add :NextGenUpLocalization string $TAG" "$STAGE/Contents/Info.plist"
+  # Finder metadata can be inherited from a DMG; remove only codesign-incompatible metadata.
+  # Retain quarantine and every security attribute.
+  /usr/bin/xattr -dr com.apple.FinderInfo "$STAGE" 2>/dev/null || true
+  /usr/bin/xattr -dr com.apple.ResourceFork "$STAGE" 2>/dev/null || true
   /usr/bin/codesign --force --sign - "$STAGE/Contents/MacOS/nextgenup"
   /usr/bin/codesign --force --sign - "$STAGE/Contents/MacOS/nextgenup-server"
   /usr/bin/codesign --force --sign - "$STAGE"

@@ -16,7 +16,9 @@ TAG = 'v1.2.0-zh.4'
 def prepare():
     for name, item in json.loads((ROOT / 'model-lock.json').read_text()).items():
         dest = ROOT / 'static/models' / name
-        urllib.request.urlretrieve(item['url'], dest)
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        if not dest.exists() or hashlib.sha256(dest.read_bytes()).hexdigest() != item['sha256']:
+            urllib.request.urlretrieve(item['url'], dest)
         if hashlib.sha256(dest.read_bytes()).hexdigest() != item['sha256']:
             raise RuntimeError('Model checksum mismatch: ' + name)
     licenses = ROOT / 'licenses/python'
