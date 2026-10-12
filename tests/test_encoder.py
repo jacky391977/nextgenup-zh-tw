@@ -1,5 +1,6 @@
 """A compiled-in hardware codec must not break video on Macs without a usable GPU."""
 import ast
+import subprocess
 from pathlib import Path
 from types import SimpleNamespace
 import unittest
@@ -12,7 +13,7 @@ code = compile(ast.fix_missing_locations(ast.Module(body=[function], type_ignore
 
 class EncoderTest(unittest.TestCase):
     def detect(self, platform, results):
-        process = SimpleNamespace(run=Mock(side_effect=results))
+        process = SimpleNamespace(run=Mock(side_effect=results), TimeoutExpired=subprocess.TimeoutExpired)
         context = {'subprocess': process, 'sys': SimpleNamespace(platform=platform), 'FFMPEG': 'ffmpeg'}
         exec(code, context)
         return context['_detect_encoder'](), process.run
@@ -25,6 +26,10 @@ class EncoderTest(unittest.TestCase):
     def test_usable_mac_hardware_keeps_acceleration(self):
         encoder, _ = self.detect('darwin', [SimpleNamespace(stdout='h264_videotoolbox libx264'), SimpleNamespace(returncode=0)])
         self.assertEqual(encoder, 'h264_videotoolbox')
+
+    def test_hardware_probe_timeout_also_falls_back(self):
+        encoder, _ = self.detect('darwin', [SimpleNamespace(stdout='h264_videotoolbox libx264'), subprocess.TimeoutExpired('ffmpeg', 10)])
+        self.assertEqual(encoder, 'libx264')
 
     def test_windows_uses_cpu_encoder_without_mac_probe(self):
         encoder, run = self.detect('win32', [SimpleNamespace(stdout='h264_videotoolbox libx264')])

@@ -1038,13 +1038,16 @@ def _detect_encoder():
         if sys.platform == 'darwin' and 'h264_videotoolbox' in encoders:
             # Listing the encoder only proves FFmpeg was compiled with it.
             # Virtual Macs and some older systems cannot create an encode session.
-            probe = subprocess.run(
-                [FFMPEG, '-v', 'error', '-f', 'lavfi', '-i',
-                 'color=c=black:s=320x240:r=1', '-frames:v', '1',
-                 '-c:v', 'h264_videotoolbox', '-f', 'null', '-'],
-                capture_output=True, timeout=10)
-            if probe.returncode == 0:
-                return 'h264_videotoolbox'
+            try:
+                probe = subprocess.run(
+                    [FFMPEG, '-v', 'error', '-f', 'lavfi', '-i',
+                     'color=c=black:s=320x240:r=1', '-frames:v', '1',
+                     '-c:v', 'h264_videotoolbox', '-f', 'null', '-'],
+                    capture_output=True, timeout=10)
+                if probe.returncode == 0:
+                    return 'h264_videotoolbox'
+            except (OSError, subprocess.TimeoutExpired):
+                pass
         if 'libx264' in encoders:
             return 'libx264'
         if 'libopenh264' in encoders:
