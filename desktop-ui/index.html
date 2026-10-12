@@ -31,10 +31,10 @@
         await fetch(URL_ + 'api/capabilities', { mode: 'no-cors' });
         location.replace(URL_);
       } catch (e) {
-        if (Date.now() - started > 60000) {
+        if (Date.now() - started > 180000) {
           document.getElementById('err').style.display = 'block';
           document.getElementById('err').textContent =
-            '本機引擎在 60 秒內未能啟動，請重新開啟程式。';
+            '本機引擎在 180 秒內未能啟動，請重新開啟程式。';
           return;
         }
         setTimeout(poll, 300);

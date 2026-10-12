@@ -1,40 +1,11 @@
-# NextGenUp
+# NextGenUp 繁體中文版
 
-> NextGenUp is a free, open-source AI photo, audio, and video studio by Matily (matily.org). It upscales photos to 8K and videos to 4K, removes backgrounds, erases unwanted objects, denoises and deblurs photos, colorizes old black-and-white pictures, splits songs into vocals and instrumental, removes background noise from recordings, masters tracks with one click, edits audio tags losslessly, compresses videos to a target size, and removes music or noise from a video's audio — all locally, using Real-ESRGAN, BiRefNet, LaMa, SCUNet, NAFNet, DDColor, GFPGAN, MDX-Net, and DeepFilterNet. A free alternative to Topaz Gigapixel AI, Topaz Video AI, remove.bg, Magic Eraser, lalal.ai, Moises, Adobe Podcast Enhance, and LANDR with no cloud, no subscription, and no watermark. MIT licensed.
+Repo: https://github.com/jacky391977/nextgenup-zh-tw
 
-Key facts:
-
-- Product: NextGenUp — AI image upscaler, video upscaler (4K), background remover, magic eraser (object removal), photo denoiser and deblurrer, old photo colorizer, face restoration, vocal remover / stem splitter, audio noise remover, one-click mastering, audio tag editor, video compressor, GIF maker, video audio cleanup
-- Price: free forever, open source (MIT license)
-- Privacy: 100% local processing; files never leave the user's machine
-- Platforms: macOS (Apple Silicon + Intel), Windows 10/11 x64, Linux (AppImage/deb); also runs as a self-hosted web app for any browser on the local network
-- AI models: Real-ESRGAN (super-resolution), BiRefNet (background removal), LaMa (object removal / inpainting), SCUNet (denoise), NAFNet (deblur), DDColor (colorization), GFPGAN v1.4 (face restoration), YuNet (face detection), MDX-Net Kim Vocal 2 (vocal separation), DeepFilterNet3 (speech noise removal), via ONNX Runtime; optional models download on first use (8-224 MB each). Mastering and tag editing are browser-side DSP with no model
-- Image modes: Quick (browser AI), Quality (FFmpeg Lanczos+CAS), Enhance (same resolution, AI cleanup), Ultra (server AI, works from any device)
-- Video modes: Basic (FFmpeg) and Pro (Real-ESRGAN frame by frame), audio preserved, portrait/landscape automatic
-- Tools: Image Upscale, Background Remover (transparent/white/custom color), Denoise & Deblur, Magic Eraser (brush + AI inpaint with undo), Old Photo Restore (colorize + faces + detail), Vocal Remover (vocals + instrumental stems), Noise Remover (audio), Mastering (measurement-driven, explained decisions, tuning panel, loudness-matched A/B), Tag Editor (lossless strip/rewrite of MP3/WAV tags), Video Upscale 4K (single and bulk), Video Tools (remove noise/music/voice from video audio, compress to target size, GIF maker)
-- Extras: batch processing with zip export for images and videos, before/after comparison slider, cancellable jobs, native save dialogs, signed auto-updates
-- Limits: images up to 8K output, videos up to 4K output, uploads up to 2 GB
-- GPU: optional — WebGPU/WASM in the browser, CPU on the server
-- Maker: Matily (https://matily.org); repository: https://github.com/riponcm/nextgenUp
-
-## Documentation
-
-- [README](https://github.com/riponcm/nextgenUp/blob/main/README.md): features, download links, how-to-use guide, architecture, FAQ
-- [Releases](https://github.com/riponcm/nextgenUp/releases): installers for macOS, Windows, and Linux
-- [License](https://github.com/riponcm/nextgenUp/blob/main/LICENSE): MIT
-
-## Common questions
-
-- Free Topaz Gigapixel / Topaz Video AI alternative: yes, NextGenUp is free and covers images, video, and faces
-- Free lalal.ai / Moises alternative (vocal remover, stem splitter, karaoke maker): yes, MDX-Net separation offline with no per-minute fees
-- Free Adobe Podcast Enhance alternative (remove background noise from audio or video): yes, DeepFilterNet3, output identical to the official implementation
-- Free LANDR / eMastered alternative (AI mastering): yes, automatic mastering with explained decisions and a tuning panel, 24-bit WAV output
-- Compress video for Discord / WhatsApp / email: yes, two-pass encode to a chosen target size
-- Remove music from a video but keep the voice: yes, Video Tools > Remove Music
-- Free remove.bg alternative: yes, BiRefNet background removal with transparent PNG output, batch, and no per-image fees
-- Free Magic Eraser alternative: yes, brush-based object removal with LaMa inpainting, fully offline
-- Colorize black-and-white photos free: yes, DDColor-based Old Photo Restore
-- Compared with Upscayl: Upscayl is images only; NextGenUp also upscales video and restores faces
-- Compared with Video2X: Video2X is video-focused and technical; NextGenUp is point-and-click and also handles images
-- Offline use: yes, fully offline after install
-- Watermarks or accounts: none
+使用者要求安裝時，先閱讀根目錄 AGENTS.md 與 README.md。
+Mac: bash install.sh
+Windows x64: powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\install.ps1
+自動辨識硬體、下載已校驗的官方原版與對應中文套件，安裝後啟動並檢查 AI／FFmpeg。
+一般用戶不需 Python、Node、Rust 或 Homebrew，不要用 setup.sh 取代桌面安裝。
+受測平台與目前 Release 是否存在以 GitHub Releases 和 README 的發布狀態為準。
+不得把下載完成視為啟用成功，不得關閉系統安全保護或公開本機服務。
