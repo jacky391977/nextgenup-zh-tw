@@ -1,0 +1,95 @@
+name: Build and verify Mac and Windows
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*-zh.*']
+permissions:
+  contents: read
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-14
+            target: aarch64-apple-darwin
+            label: macos-arm64
+          - os: macos-15-intel
+            target: x86_64-apple-darwin
+            label: macos-x64
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            label: windows-x64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Python dependencies and locked models
+        shell: bash
+        run: |
+          python -m pip install -r requirements.txt pyinstaller opencv-python-headless
+          python scripts/build_payload.py --prepare
+      - name: Build localized sidecar
+        shell: bash
+        run: |
+          pyinstaller --noconfirm nextgenup-server.spec
+          python -c "import pathlib,shutil; p=pathlib.Path('src-tauri/binaries'); p.mkdir(exist_ok=True); ext='.exe' if '${{ runner.os }}'=='Windows' else ''; shutil.copy2('dist/nextgenup-server'+ext,str(p/('nextgenup-server-${{ matrix.target }}'+ext)))"
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build native shell and package payload
+        shell: bash
+        run: |
+          npm install
+          npm run tauri build -- --no-bundle
+          python scripts/build_payload.py --package '${{ matrix.label }}'
+      - name: Install and start on clean Mac runner
+        if: runner.os == 'macOS'
+        run: |
+          bash install.sh --asset-dir "$PWD/release-assets" --prefix "$RUNNER_TEMP/test-apps"
+          bash install.sh --asset-dir "$PWD/release-assets" --prefix "$RUNNER_TEMP/test-apps"
+          bash install.sh --doctor --prefix "$RUNNER_TEMP/test-apps"
+      - name: Install and start on clean Windows runner
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          .\install.ps1 -AssetDir "$PWD\release-assets" -InstallDir "$env:RUNNER_TEMP\test-app"
+          .\install.ps1 -AssetDir "$PWD\release-assets" -InstallDir "$env:RUNNER_TEMP\test-app"
+          .\install.ps1 -Doctor -InstallDir "$env:RUNNER_TEMP\test-app"
+      - name: AI and video end-to-end smoke tests
+        shell: bash
+        run: python tests/smoke.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: payload-${{ matrix.label }}
+          path: release-assets/
+          if-no-files-found: error
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: downloaded
+          pattern: payload-*
+      - name: Collect verified payloads
+        run: |
+          mkdir release-assets
+          cp downloaded/payload-*/*.zip release-assets/
+          cat downloaded/payload-*/SHA256SUMS > release-assets/SHA256SUMS
+          cp install.sh install.ps1 release-assets/
+          cp downloaded/payload-*/qa-*.json release-assets/
+      - name: Publish only after every platform passes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create v1.2.0-zh.4 release-assets/* --target "$GITHUB_SHA" --title 'NextGenUp 1.2.0 繁體中文版 r4｜Mac + Windows' --notes-file docs/RELEASE.md --latest
