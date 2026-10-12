@@ -1,6 +1,6 @@
 # NextGenUp 繁體中文版
 
-> 發布準備中：目前原始碼與安裝腳本已公開，跨平台 Release 尚待 GitHub 建置驗證，資產發布前請勿交付客戶安裝。
+> 已發布 v1.2.0-zh.4：Apple Silicon Mac、Intel Mac 與 Windows x64 的安裝、啟動、AI 圖片超分及影片放大測試皆通過。
 
 免費開源的照片、影片與音訊處理程式，提供繁體中文介面、照片拖曳比對與內建教學彈窗。這是以 [NextGenUp 1.2.0](https://github.com/riponcm/nextgenUp/tree/16e01bb1e34baf7feb62dc70172dc5a572d3b7e8) 為基礎的社群版本，並非原作者官方中文版。
 
@@ -27,7 +27,7 @@ https://github.com/jacky391977/nextgenup-zh-tw
 
 Windows ARM／32 位元與 Linux 暫未提供受測安裝版本。Mac 建置以 GitHub macOS runner 測試，較舊系統相容性需另外實測。一般安裝不需管理員權限、Python、Node、Rust 或 Homebrew；第一次下載需要連網，建議留至少 3 GB 安裝空間。
 
-[下載及建置檢查](https://github.com/jacky391977/nextgenup-zh-tw/releases) · [自動測試紀錄](https://github.com/jacky391977/nextgenup-zh-tw/actions/workflows/release.yml)
+[下載及驗證紀錄](https://github.com/jacky391977/nextgenup-zh-tw/releases/tag/v1.2.0-zh.4) · [自動測試紀錄](https://github.com/jacky391977/nextgenup-zh-tw/actions/workflows/release.yml)
 
 ![繁體中文版實際操作教學彈窗](assets/screens/zh-help.png)
 
