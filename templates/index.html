@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NextGenUp — 免費 AI 圖片、音訊與影片工作室</title>
+<meta content="免費、開放原始碼的 AI 圖片、音訊與影片工作室，在本機執行超分、去背、照片修復、聲音清理與影片工具。" name="description"/>
+<meta content="AI upscaler, image upscaler, video upscaler, 4K converter, background remover, remove background free, magic eraser, object remover, denoise photo, deblur photo, colorize black and white photo, old photo restoration, photo enhancer, super resolution, Real-ESRGAN, BiRefNet, LaMa, DDColor, GFPGAN, Topaz alternative, remove.bg alternative, vocal remover, stem splitter, karaoke maker, acapella extractor, remove background noise from audio, podcast noise removal, AI mastering free, LANDR alternative, lalal.ai alternative, video compressor, compress video for Discord, video to GIF, remove music from video, free upscaler, open source" name="keywords"/>
+<meta content="NextGenUp — 免費 AI 圖片與影片超分工作室" property="og:title"/>
+<meta content="NextGenUp — 免費 AI 圖片與影片超分工作室" property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://raw.githubusercontent.com/riponcm/nextgenUp/main/assets/social-preview.png" property="og:image"/>
+<meta content="{{ api_token }}" name="ngu-token"/>
+<link href="/static/favicon.png" rel="icon" type="image/png"/>
+<link href="/static/css/style.css" rel="stylesheet"/>
+<link href="/static/css/help.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style id="ngu-zh-font">body { font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; } .nav-item span, .mode-info h3 { letter-spacing: .02em; }</style></head>
+<body>
+<header>
+<div class="header-inner">
+<div class="logo">
+<svg fill="none" height="32" viewbox="0 0 130 130" width="32">
+<defs><lineargradient gradientunits="userSpaceOnUse" id="logo-grad" x1="0" x2="130" y1="0" y2="130"><stop stop-color="#6c5ce7"></stop><stop offset="1" stop-color="#a29bfe"></stop></lineargradient></defs>
+<rect fill="url(#logo-grad)" height="130" rx="29" width="130"></rect>
+<rect fill="#fff" height="12" opacity="0.6" width="12" x="20" y="34"></rect>
+<rect fill="#fff" height="10" opacity="0.55" width="10" x="45" y="38"></rect>
+<rect fill="#fff" height="10" opacity="0.75" width="10" x="55" y="38"></rect>
+<rect fill="#fff" height="10" opacity="0.65" width="9" x="37" y="48"></rect>
+<rect fill="#fff" height="10" opacity="0.85" width="10" x="45" y="48"></rect>
+<rect fill="#fff" height="10" opacity="0.95" width="10" x="55" y="48"></rect>
+<rect fill="#fff" height="10" opacity="0.75" width="9" x="37" y="58"></rect>
+<rect fill="#6c5ce7" height="10" opacity="0.9" width="10" x="45" y="58"></rect>
+<rect fill="#fff" height="10" opacity="0.9" width="10" x="55" y="58"></rect>
+<rect fill="#fff" height="10" opacity="0.8" width="9" x="37" y="68"></rect>
+<rect fill="#fff" height="10" opacity="0.7" width="10" x="45" y="68"></rect>
+<rect fill="#6c5ce7" height="10" opacity="0.85" width="10" x="55" y="68"></rect>
+<rect fill="#fff" height="9" opacity="0.55" width="7" x="41" y="78"></rect>
+<rect fill="#fff" height="9" opacity="0.8" width="8" x="48" y="78"></rect>
+<rect fill="#fff" height="9" opacity="0.7" width="9" x="56" y="78"></rect>
+<rect fill="#fff" height="7" opacity="0.45" width="7" x="50" y="87"></rect>
+<rect fill="#fff" height="7" opacity="0.6" width="8" x="57" y="87"></rect>
+<path d="M65 38A28 28 0 0 1 93 66Q93 82 80 89L65 94Z" fill="#fff"></path>
+<path d="M76 40L98 30Q102 44 96 54Q88 52 80 46Z" fill="#fff"></path>
+<circle cx="79" cy="63" fill="#a29bfe" r="8.5"></circle>
+<circle cx="79" cy="63" fill="#2d2640" r="4.5"></circle>
+<path d="M65 74H70Q75 75 72 81Q69 85 65 86Z" fill="#2d2640"></path>
+<rect fill="#fff" height="86" rx="2" width="4" x="63" y="16"></rect>
+<circle cx="65" cy="106" fill="#fff" r="9"></circle>
+<circle cx="65" cy="106" fill="#6c5ce7" r="4"></circle>
+</svg>
+<h1>NextGen<span>Up</span></h1>
+</div>
+<div class="header-right">
+<button type="button" class="ng-help-header" id="ng-help-header" aria-haspopup="dialog" aria-controls="ng-help-dialog" aria-expanded="false" aria-label="開啟使用說明與操作教學">使用教學</button>
+<div class="header-badge" id="gpu-badge">
+<span class="badge-dot"></span>
+<span id="gpu-status">正在檢查 WebGPU…</span>
+</div>
+<button aria-label="關於 NextGenUp" class="about-btn" id="about-btn" title="關於 NextGenUp">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18">
+<circle cx="12" cy="12" r="10"></circle>
+<line x1="12" x2="12" y1="16" y2="12"></line>
+<line x1="12" x2="12.01" y1="8" y2="8"></line>
+</svg>
+</button>
+</div>
+</div>
+</header>
+<!-- About Modal -->
+<div class="about-overlay hidden" id="about-overlay">
+<div class="about-modal">
+<button aria-label="關閉" class="about-close" id="about-close">×</button>
+<svg fill="none" height="72" style="border-radius:16px" viewbox="0 0 130 130" width="72">
+<defs><lineargradient gradientunits="userSpaceOnUse" id="about-grad" x1="0" x2="130" y1="0" y2="130"><stop stop-color="#6c5ce7"></stop><stop offset="1" stop-color="#a29bfe"></stop></lineargradient></defs>
+<rect fill="url(#about-grad)" height="130" rx="29" width="130"></rect>
+<rect fill="#fff" height="12" opacity="0.6" width="12" x="20" y="34"></rect>
+<rect fill="#fff" height="10" opacity="0.55" width="10" x="45" y="38"></rect>
+<rect fill="#fff" height="10" opacity="0.75" width="10" x="55" y="38"></rect>
+<rect fill="#fff" height="10" opacity="0.65" width="9" x="37" y="48"></rect>
+<rect fill="#fff" height="10" opacity="0.85" width="10" x="45" y="48"></rect>
+<rect fill="#fff" height="10" opacity="0.95" width="10" x="55" y="48"></rect>
+<rect fill="#fff" height="10" opacity="0.75" width="9" x="37" y="58"></rect>
+<rect fill="#6c5ce7" height="10" opacity="0.9" width="10" x="45" y="58"></rect>
+<rect fill="#fff" height="10" opacity="0.9" width="10" x="55" y="58"></rect>
+<rect fill="#fff" height="10" opacity="0.8" width="9" x="37" y="68"></rect>
+<rect fill="#fff" height="10" opacity="0.7" width="10" x="45" y="68"></rect>
+<rect fill="#6c5ce7" height="10" opacity="0.85" width="10" x="55" y="68"></rect>
+<rect fill="#fff" height="9" opacity="0.55" width="7" x="41" y="78"></rect>
+<rect fill="#fff" height="9" opacity="0.8" width="8" x="48" y="78"></rect>
+<rect fill="#fff" height="9" opacity="0.7" width="9" x="56" y="78"></rect>
+<rect fill="#fff" height="7" opacity="0.45" width="7" x="50" y="87"></rect>
+<rect fill="#fff" height="7" opacity="0.6" width="8" x="57" y="87"></rect>
+<path d="M65 38A28 28 0 0 1 93 66Q93 82 80 89L65 94Z" fill="#fff"></path>
+<path d="M76 40L98 30Q102 44 96 54Q88 52 80 46Z" fill="#fff"></path>
+<circle cx="79" cy="63" fill="#a29bfe" r="8.5"></circle>
+<circle cx="79" cy="63" fill="#2d2640" r="4.5"></circle>
+<path d="M65 74H70Q75 75 72 81Q69 85 65 86Z" fill="#2d2640"></path>
+<rect fill="#fff" height="86" rx="2" width="4" x="63" y="16"></rect>
+<circle cx="65" cy="106" fill="#fff" r="9"></circle>
+<circle cx="65" cy="106" fill="#6c5ce7" r="4"></circle>
+</svg>
+<h2>NextGen<span class="about-up">Up</span></h2>
+<p class="about-version">版本 <span id="about-version">1.0.0</span></p>
+<p class="about-tagline">AI 圖片與影片超分 — 免費、開放原始碼，在你的電腦執行。</p>
+<p class="about-brand">由 <a class="ext-link" href="https://matily.org">matily.org</a> 開發</p>
+<div class="about-actions">
+<a class="about-github ext-link" href="https://github.com/riponcm/nextgenUp">
+<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"></path></svg>
+                    在 GitHub 給星支持
+                </a>
+<button class="about-github" id="update-check-btn">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"></path></svg>
+                    檢查更新
+                </button>
+</div>
+<p class="update-status hidden" id="update-status"></p>
+<p class="about-credits">
+                採用 <a class="ext-link" href="https://github.com/xinntao/Real-ESRGAN">Real-ESRGAN</a>,
+                <a class="ext-link" href="https://github.com/TencentARC/GFPGAN">GFPGAN</a>
+                與 FFmpeg • MIT 授權
+            </p>
+</div>
+</div>
+<div class="app-layout">
+<!-- Sidebar Navigation -->
+<aside class="sidebar" id="sidebar">
+<nav class="sidebar-nav">
+<span class="nav-section">圖片</span>
+<button class="nav-item active" data-tab="image" id="nav-image">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<rect height="18" rx="2" ry="2" width="18" x="3" y="3"></rect>
+<circle cx="8.5" cy="8.5" r="1.5"></circle>
+<polyline points="21 15 16 10 5 21"></polyline>
+</svg>
+<span>圖片超分</span>
+</button>
+<button class="nav-item" data-tab="bg" id="nav-bg">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<circle cx="12" cy="8" r="4"></circle>
+<path d="M4 20c0-4 3.5-6.5 8-6.5s8 2.5 8 6.5"></path>
+<path d="M2 3l4 4M6 3L2 7" opacity="0.6"></path>
+</svg>
+<span>圖片去背</span>
+</button>
+<button class="nav-item" data-tab="clean" id="nav-clean">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M12 3l1.9 5.8L20 10l-6.1 1.2L12 17l-1.9-5.8L4 10l6.1-1.2z"></path>
+<path d="M19 17l.7 2.3L22 20l-2.3.7L19 23l-.7-2.3L16 20l2.3-.7z"></path>
+</svg>
+<span>降噪與去模糊</span>
+</button>
+<button class="nav-item" data-tab="erase" id="nav-erase">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M20 20H8.5L3 14.5a2 2 0 010-2.8l8.7-8.7a2 2 0 012.8 0l6 6a2 2 0 010 2.8L13 19.3"></path>
+<path d="M8 9l7 7"></path>
+</svg>
+<span>魔術橡皮擦</span>
+</button>
+<button class="nav-item" data-tab="restore" id="nav-restore">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<circle cx="12" cy="12" r="9"></circle>
+<polyline points="12 7 12 12 15.5 14"></polyline>
+</svg>
+<span>老照片修復</span>
+</button>
+<span class="nav-section">音訊</span>
+<button class="nav-item" data-tab="sep" id="nav-sep">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M9 18V6l12-3v12"></path>
+<circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="15" r="3"></circle>
+</svg>
+<span>人聲與伴奏分離</span>
+</button>
+<button class="nav-item" data-tab="adenoise" id="nav-adenoise">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M12 2a4 4 0 014 4v6a4 4 0 01-8 0V6a4 4 0 014-4z"></path>
+<path d="M19 10v2a7 7 0 01-14 0v-2M12 19v3"></path>
+</svg>
+<span>音訊降噪</span>
+</button>
+<button class="nav-item" data-tab="master" id="nav-master">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<line x1="4" x2="4" y1="21" y2="14"></line><line x1="4" x2="4" y1="10" y2="3"></line>
+<line x1="12" x2="12" y1="21" y2="12"></line><line x1="12" x2="12" y1="8" y2="3"></line>
+<line x1="20" x2="20" y1="21" y2="16"></line><line x1="20" x2="20" y1="12" y2="3"></line>
+<line x1="1" x2="7" y1="14" y2="14"></line><line x1="9" x2="15" y1="8" y2="8"></line><line x1="17" x2="23" y1="16" y2="16"></line>
+</svg>
+<span>音訊母帶處理</span>
+</button>
+<button class="nav-item" data-tab="tags" id="nav-tags">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"></path>
+<line x1="7" x2="7.01" y1="7" y2="7"></line>
+</svg>
+<span>音樂標籤編輯</span>
+</button>
+<span class="nav-section">影片</span>
+<button class="nav-item" data-tab="video" id="nav-video">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<polygon points="23 7 16 12 23 17 23 7"></polygon>
+<rect height="14" rx="2" ry="2" width="15" x="1" y="5"></rect>
+</svg>
+<span>影片超分 4K</span>
+</button>
+<button class="nav-item" data-tab="vtools" id="nav-vtools">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<rect height="16" rx="2" width="20" x="2" y="4"></rect>
+<path d="M2 9h20M7 4v5M17 4v5"></path>
+<circle cx="12" cy="15" r="2.5"></circle>
+</svg>
+<span>影片工具</span>
+</button>
+<span class="nav-section">說明</span>
+<button type="button" class="ng-help-nav" id="nav-help" aria-haspopup="dialog" aria-controls="ng-help-dialog" aria-expanded="false"><span>使用說明與教學</span></button>
+</nav>
+<div class="sidebar-footer">
+<a class="sidebar-star ext-link" href="https://github.com/riponcm/nextgenUp" title="在 GitHub 給 NextGenUp 星星支持">
+<svg fill="currentColor" height="13" viewbox="0 0 24 24" width="13"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                    給專案星星支持
+                </a>
+<span class="sidebar-version" id="sidebar-version">v1.0.0</span>
+</div>
+</aside>
+<!-- Content Area -->
+<div class="content-area">
+<!-- ===================== IMAGE UPSCALE TAB ===================== -->
+<main class="tab-content active" id="tab-image">
+<!-- Image Upload Section -->
+<section id="img-upload-section">
+<div class="dropzone" id="img-dropzone">
+<input accept="image/png,image/jpeg,image/webp,image/bmp,image/tiff,.png,.jpg,.jpeg,.webp,.bmp,.tiff,.tif" hidden="" id="img-file-input" multiple="" type="file"/>
+<div class="dropzone-content">
+<div class="dropzone-icon">
+<svg fill="none" height="48" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="48">
+<rect height="18" rx="2" ry="2" width="18" x="3" y="3"></rect>
+<circle cx="8.5" cy="8.5" r="1.5"></circle>
+<polyline points="21 15 16 10 5 21"></polyline>
+</svg>
+</div>
+<h3>將圖片拖曳到這裡</h3>
+<p>或按一下選擇檔案 — 可多選並批次處理</p>
+<span class="dropzone-hint">PNG、JPG、WebP、BMP、TIFF • 每個檔案上限 50 MB</span>
+</div>
+</div>
+</section>
+<!-- Image App Section (hidden until upload) -->
+<section class="hidden" id="img-app-section">
+<!-- Before / After Comparison -->
+<div class="image-compare-container">
+<div class="image-panel">
+<div class="panel-header">
+<span class="panel-label">原始內容</span>
+<span class="panel-badge" id="img-original-res"></span>
+</div>
+<div class="image-wrapper">
+<img alt="原始圖片" id="img-original"/>
+</div>
+</div>
+<div class="image-panel" id="img-output-panel">
+<div class="panel-header">
+<span class="panel-label">超分結果</span>
+<span class="panel-badge" id="img-upscaled-res"></span>
+</div>
+<div class="image-wrapper">
+<img alt="超分圖片" class="hidden" id="img-upscaled"/>
+<div class="output-placeholder" id="img-output-placeholder">
+<svg fill="none" height="40" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="40">
+<rect height="18" rx="2" ry="2" width="18" x="3" y="3"></rect>
+<circle cx="8.5" cy="8.5" r="1.5"></circle>
+<polyline points="21 15 16 10 5 21"></polyline>
+</svg>
+<p>超分後的圖片會顯示在這裡</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Image Info Bar -->
+<div class="info-bar" id="img-info-bar">
+<div class="info-item">
+<span class="info-label">解析度</span>
+<span class="info-value" id="img-info-resolution">-</span>
+</div>
+<div class="info-item">
+<span class="info-label">格式</span>
+<span class="info-value" id="img-info-format">-</span>
+</div>
+<div class="info-item">
+<span class="info-label">檔案大小</span>
+<span class="info-value" id="img-info-size">-</span>
+</div>
+</div>
+<!-- Image Mode Selection -->
+<div class="mode-selector mode-selector-3">
+<div class="mode-card selected" data-imgmode="quick" id="img-mode-quick">
+<div class="mode-icon basic-icon">
+<svg fill="none" height="28" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="28">
+<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+</svg>
+</div>
+<div class="mode-info">
+<h3>快速超分</h3>
+<p>Real-ESRGAN AI • 瀏覽器內處理</p>
+<div class="mode-tags">
+<span class="tag tag-fast">即時處理</span>
+<span class="tag tag-gpu">使用本機 GPU</span>
+</div>
+</div>
+</div>
+<div class="mode-card" data-imgmode="quality" id="img-mode-quality">
+<div class="mode-icon pro-icon">
+<svg fill="none" height="28" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="28">
+<path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path>
+</svg>
+</div>
+<div class="mode-info">
+<h3>高品質放大</h3>
+<p>FFmpeg Lanczos + CAS • 本機引擎處理</p>
+<div class="mode-tags">
+<span class="tag tag-ai">高品質</span>
+<span class="tag tag-server">本機引擎</span>
+</div>
+</div>
+</div>
+<div class="mode-card" data-imgmode="enhance" id="img-mode-enhance">
+<div class="mode-icon enhance-icon">
+<svg fill="none" height="28" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="28">
+<circle cx="12" cy="12" r="3"></circle>
+<path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+</svg>
+</div>
+<div class="mode-info">
+<h3>畫質增強</h3>
+<p>AI 清理雜訊 • 保持原尺寸、強化清晰度</p>
+<div class="mode-tags">
+<span class="tag tag-enhance">修復</span>
+<span class="tag tag-gpu">使用本機 GPU</span>
+</div>
+</div>
+</div>
+                        {% if server_ai %}
+                        <div class="mode-card" data-imgmode="ultra" id="img-mode-ultra">
+<div class="mode-icon ultra-icon">
+<svg fill="none" height="28" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="28">
+<path d="M12 2l3 6 6 .9-4.5 4.2 1.1 6.2L12 16.4 6.4 19.3l1.1-6.2L3 8.9 9 8z"></path>
+</svg>
+</div>
+<div class="mode-info">
+<h3>極致 AI 超分</h3>
+<p>Real-ESRGAN AI • 本機引擎處理</p>
+<div class="mode-tags">
+<span class="tag tag-ai">AI 高品質</span>
+<span class="tag tag-server">不限裝置</span>
+</div>
+</div>
+</div>
+                        {% endif %}
+                    </div>
+<!-- Image Options Row -->
+<div class="options-row">
+<div class="option-group">
+<label>放大倍率</label>
+<div class="scale-buttons" id="img-scale-buttons">
+<button class="scale-btn" data-imgscale="2">2x</button>
+<button class="scale-btn selected" data-imgscale="4">4x</button>
+</div>
+</div>
+<div class="option-group">
+<label>輸出解析度</label>
+<span class="output-res" id="img-output-resolution">-</span>
+</div>
+                        {% if face_restore %}
+                        <div class="option-group hidden" id="face-restore-group">
+<label>臉部</label>
+<label class="face-toggle">
+<input id="face-restore-check" type="checkbox"/>
+                                修復臉部（GFPGAN）
+                            </label>
+</div>
+                        {% endif %}
+                        <button class="upscale-btn" id="img-upscale-btn">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+<polyline points="17 6 23 6 23 12"></polyline>
+</svg>
+                            開始超分
+                        </button>
+</div>
+<!-- Image Progress Section -->
+<div class="progress-section hidden" id="img-progress-section">
+<div class="progress-header">
+<span id="img-progress-message">處理中…</span>
+<span class="progress-right">
+<span id="img-progress-percent">0%</span>
+<button class="cancel-btn" id="img-cancel-btn">取消</button>
+</span>
+</div>
+<div class="progress-track">
+<div class="progress-fill" id="img-progress-fill"></div>
+</div>
+<div class="progress-footer">
+<span id="img-progress-detail"></span>
+<span id="img-progress-eta"></span>
+</div>
+</div>
+<!-- Before/After Comparison Slider -->
+<div class="compare-section hidden" id="img-compare-section">
+<div class="compare-header">
+<span class="panel-label">前後對照</span>
+<span class="compare-hint">拖曳分隔線 — 左側為原圖，右側為處理結果</span>
+</div>
+<div class="compare-box" id="compare-box">
+<img alt="處理結果" id="compare-after"/>
+<div class="compare-before-wrap" id="compare-before-wrap">
+<img alt="原始內容" id="compare-before"/>
+</div>
+<div class="compare-handle" id="compare-handle">
+<div class="compare-knob">↔</div>
+</div>
+</div>
+</div>
+<!-- Image Download Section -->
+<div class="download-section hidden" id="img-download-section">
+<div class="download-card">
+<div class="download-info">
+<h3>超分完成！</h3>
+<p id="img-download-details"></p>
+</div>
+<button class="download-btn" id="img-download-btn">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+<polyline points="7 10 12 15 17 10"></polyline>
+<line x1="12" x2="12" y1="15" y2="3"></line>
+</svg>
+                                儲存圖片
+                            </button>
+</div>
+</div>
+<!-- New Image Button -->
+<div class="new-video-row hidden" id="img-new-row">
+<button class="new-video-btn" id="img-new-btn">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+                            選擇其他圖片
+                        </button>
+</div>
+</section>
+<!-- Batch Processing Section (multiple images) -->
+<section class="hidden" id="img-batch-section">
+<div class="batch-toolbar">
+<div>
+<h3 id="batch-title">批次：0 張圖片</h3>
+<p class="batch-sub" id="batch-sub">選擇模式與倍率，再開始處理</p>
+</div>
+<div class="batch-actions">
+<button class="upscale-btn" id="batch-start-btn">開始批次處理</button>
+<button class="download-btn hidden" id="batch-zip-btn">儲存全部結果（.zip）</button>
+<button class="new-video-btn" id="batch-reset-btn">取消</button>
+</div>
+</div>
+<div class="options-row batch-options">
+<div class="option-group">
+<label>模式</label>
+<select class="batch-select" id="batch-mode">
+<option value="quick">快速 — 瀏覽器 AI</option>
+<option value="quality">高品質 — 本機 FFmpeg</option>
+<option value="enhance">畫質增強 — AI 清理、保持原尺寸</option>
+                                {% if server_ai %}<option value="ultra">極致 — 本機 AI</option>{% endif %}
+                            </select>
+</div>
+<div class="option-group">
+<label>放大倍率</label>
+<div class="scale-buttons">
+<button class="scale-btn" data-batchscale="2">2x</button>
+<button class="scale-btn selected" data-batchscale="4">4x</button>
+</div>
+</div>
+<div class="option-group">
+<label>進度</label>
+<span class="output-res" id="batch-progress-label">—</span>
+</div>
+</div>
+<div class="batch-grid" id="batch-grid"></div>
+</section>
+</main>
+<!-- ===================== VIDEO UPSCALE TAB ===================== -->
+<main class="tab-content" id="tab-video">
+<!-- Upload Section -->
+<section id="upload-section">
+<div class="dropzone" id="dropzone">
+<input accept="video/mp4,video/quicktime,video/webm,video/x-matroska,video/avi,.mp4,.mov,.webm,.mkv,.avi" hidden="" id="file-input" multiple="" type="file"/>
+<div class="dropzone-content">
+<div class="dropzone-icon">
+<svg fill="none" height="48" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="48">
+<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+<polyline points="17 8 12 3 7 8"></polyline>
+<line x1="12" x2="12" y1="3" y2="15"></line>
+</svg>
+</div>
+<h3>將影片拖曳到這裡</h3>
+<p>或按一下選擇檔案 — 可多選並批次處理</p>
+<span class="dropzone-hint">MP4、MOV、WebM、MKV • 每個檔案上限 2 GB</span>
+</div>
+</div>
+</section>
+<!-- Main App Section (hidden until upload) -->
+<section class="hidden" id="app-section">
+<!-- Video Preview -->
+<div class="video-container">
+<div class="video-panel">
+<div class="panel-header">
+<span class="panel-label">原始內容</span>
+<span class="panel-badge" id="original-res"></span>
+</div>
+<video controls="" id="original-video" playsinline=""></video>
+</div>
+<div class="video-panel" id="output-panel">
+<div class="panel-header">
+<span class="panel-label">超分結果</span>
+<span class="panel-badge" id="upscaled-res"></span>
+</div>
+<video class="hidden" controls="" id="upscaled-video" playsinline=""></video>
+<div class="output-placeholder" id="output-placeholder">
+<svg fill="none" height="40" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="40">
+<rect height="20" rx="2.18" ry="2.18" width="20" x="2" y="2"></rect>
+<line x1="7" x2="7" y1="2" y2="22"></line><line x1="17" x2="17" y1="2" y2="22"></line>
+<line x1="2" x2="22" y1="12" y2="12"></line>
+<line x1="2" x2="7" y1="7" y2="7"></line><line x1="2" x2="7" y1="17" y2="17"></line>
+<line x1="17" x2="22" y1="7" y2="7"></line><line x1="17" x2="22" y1="17" y2="17"></line>
+</svg>
+<p>超分後的影片預覽會顯示在這裡</p>
+</div>
+</div>
+</div>
+<!-- Video Info Bar -->
+<div class="info-bar" id="info-bar">
+<div class="info-item">
+<span class="info-label">解析度</span>
+<span class="info-value" id="info-resolution">-</span>
+</div>
+<div class="info-item">
+<span class="info-label">幀率</span>
+<span class="info-value" id="info-fps">-</span>
+</div>
+<div class="info-item">
+<span class="info-label">長度</span>
+<span class="info-value" id="info-duration">-</span>
+</div>
+<div class="info-item">
+<span class="info-label">檔案大小</span>
+<span class="info-value" id="info-size">-</span>
+</div>
+<div class="info-item">
+<span class="info-label">編碼格式</span>
+<span class="info-value" id="info-codec">-</span>
+</div>
+</div>
+<!-- Mode Selection -->
+<div class="mode-selector">
+<div class="mode-card selected" data-mode="basic" id="mode-basic">
+<div class="mode-icon basic-icon">
+<svg fill="none" height="28" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="28">
+<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+</svg>
+</div>
+<div class="mode-info">
+<h3>基本放大</h3>
+<p>FFmpeg Lanczos 放大與 CAS 銳化</p>
+<div class="mode-tags">
+<span class="tag tag-fast">快速</span>
+<span class="tag tag-server">本機引擎</span>
+</div>
+</div>
+</div>
+<div class="mode-card" data-mode="pro" id="mode-pro">
+<div class="mode-icon pro-icon">
+<svg fill="none" height="28" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="28">
+<path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path>
+</svg>
+</div>
+<div class="mode-info">
+<h3>專業 AI 超分</h3>
+<p>Real-ESRGAN AI • WebGPU 加速</p>
+<div class="mode-tags">
+<span class="tag tag-ai">AI 畫質增強</span>
+<span class="tag tag-gpu">使用本機 GPU</span>
+</div>
+</div>
+<div class="pro-warning hidden" id="pro-warning"></div>
+</div>
+</div>
+<!-- Options Row -->
+<div class="options-row">
+<div class="option-group">
+<label>放大倍率</label>
+<div class="scale-buttons" id="scale-buttons">
+<button class="scale-btn" data-scale="2">2x</button>
+<button class="scale-btn selected" data-scale="4">4x</button>
+</div>
+</div>
+<div class="option-group">
+<label>輸出解析度</label>
+<span class="output-res" id="output-resolution">3840 x 2160</span>
+</div>
+<button class="upscale-btn" id="upscale-btn">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+<polyline points="17 6 23 6 23 12"></polyline>
+</svg>
+                            開始超分
+                        </button>
+</div>
+<!-- Progress Section -->
+<div class="progress-section hidden" id="progress-section">
+<div class="progress-header">
+<span id="progress-message">處理中…</span>
+<span class="progress-right">
+<span id="progress-percent">0%</span>
+<button class="cancel-btn" id="cancel-btn">取消</button>
+</span>
+</div>
+<div class="progress-track">
+<div class="progress-fill" id="progress-fill"></div>
+</div>
+<div class="progress-footer">
+<span id="progress-frames">影格 0／0</span>
+<span id="progress-eta"></span>
+</div>
+</div>
+<!-- Download Section -->
+<div class="download-section hidden" id="download-section">
+<div class="download-card">
+<div class="download-info">
+<h3>超分完成！</h3>
+<p id="download-details"></p>
+</div>
+<button class="download-btn" id="download-btn">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+<polyline points="7 10 12 15 17 10"></polyline>
+<line x1="12" x2="12" y1="15" y2="3"></line>
+</svg>
+                                儲存 4K 影片
+                            </button>
+</div>
+</div>
+<!-- New Video Button -->
+<div class="new-video-row hidden" id="new-video-row">
+<button class="new-video-btn" id="new-video-btn">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+                            選擇其他影片
+                        </button>
+</div>
+</section>
+<!-- Video Batch Section (multiple videos) -->
+<section class="hidden" id="video-batch-section">
+<div class="batch-toolbar">
+<div>
+<h3 id="vbatch-title">批次：0 支影片</h3>
+<p class="batch-sub" id="vbatch-sub">影片會逐支依序處理</p>
+</div>
+<div class="batch-actions">
+<button class="upscale-btn" id="vbatch-start-btn">開始批次處理</button>
+<button class="download-btn hidden" id="vbatch-zip-btn">儲存全部結果（.zip）</button>
+<button class="new-video-btn" id="vbatch-reset-btn">取消</button>
+</div>
+</div>
+<div class="options-row batch-options">
+<div class="option-group">
+<label>模式</label>
+<select class="batch-select" id="vbatch-mode">
+<option value="basic">基本 — 本機 FFmpeg</option>
+<option value="pro">專業 — 瀏覽器 AI</option>
+</select>
+</div>
+<div class="option-group">
+<label>放大倍率</label>
+<div class="scale-buttons">
+<button class="scale-btn" data-vbatchscale="2">2x</button>
+<button class="scale-btn selected" data-vbatchscale="4">4x</button>
+</div>
+</div>
+<div class="option-group">
+<label>進度</label>
+<span class="output-res" id="vbatch-progress-label">—</span>
+</div>
+</div>
+<div class="vbatch-list" id="vbatch-list"></div>
+</section>
+</main>
+<!-- ===================== BACKGROUND REMOVER TAB ===================== -->
+<main class="tab-content" id="tab-bg">
+<!-- One-time model setup -->
+<section class="hidden" id="bg-setup-section">
+<div class="bg-setup-card">
+<h3>首次設定</h3>
+<p>去背使用 BiRefNet AI 模型（224 MB、MIT 授權）。下載一次後，即可在本機處理。</p>
+<button class="upscale-btn" id="bg-model-btn">下載 AI 模型</button>
+<div class="progress-track hidden" id="bg-model-track">
+<div class="progress-fill" id="bg-model-fill"></div>
+</div>
+<p class="bg-setup-status" id="bg-model-status"></p>
+</div>
+</section>
+<!-- Upload -->
+<section class="hidden" id="bg-upload-section">
+<div class="dropzone" id="bg-dropzone">
+<input accept="image/png,image/jpeg,image/webp,image/bmp,image/tiff,.png,.jpg,.jpeg,.webp,.bmp,.tiff,.tif" hidden="" id="bg-file-input" multiple="" type="file"/>
+<div class="dropzone-content">
+<div class="dropzone-icon">
+<svg fill="none" height="48" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="48">
+<circle cx="12" cy="8" r="4"></circle>
+<path d="M4 20c0-4 3.5-6.5 8-6.5s8 2.5 8 6.5"></path>
+</svg>
+</div>
+<h3>將圖片拖曳到這裡</h3>
+<p>或按一下選擇檔案 — 可多選並批次處理</p>
+<span class="dropzone-hint">PNG、JPG、WebP、BMP、TIFF • 每個檔案上限 50 MB</span>
+</div>
+</div>
+</section>
+<!-- Single image -->
+<section class="hidden" id="bg-app-section">
+<div class="image-compare-container">
+<div class="image-panel">
+<div class="panel-header">
+<span class="panel-label">原始內容</span>
+<span class="panel-badge" id="bg-original-res"></span>
+</div>
+<div class="image-wrapper">
+<img alt="原始圖片" id="bg-original"/>
+</div>
+</div>
+<div class="image-panel">
+<div class="panel-header">
+<span class="panel-label">處理結果</span>
+<span class="panel-badge" id="bg-result-res"></span>
+</div>
+<div class="image-wrapper checkerboard">
+<img alt="Result image" class="hidden" id="bg-result"/>
+<div class="output-placeholder" id="bg-output-placeholder">
+<svg fill="none" height="40" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="40">
+<circle cx="12" cy="8" r="4"></circle>
+<path d="M4 20c0-4 3.5-6.5 8-6.5s8 2.5 8 6.5"></path>
+</svg>
+<p>去背結果會顯示在這裡</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Background choice -->
+<div class="options-row">
+<div class="option-group">
+<label>背景</label>
+<div class="scale-buttons" id="bg-choice-buttons">
+<button class="scale-btn selected" data-bgchoice="transparent">透明</button>
+<button class="scale-btn" data-bgchoice="#ffffff">白色</button>
+<button class="scale-btn" data-bgchoice="custom">自訂</button>
+<input class="hidden" id="bg-color-picker" type="color" value="#00b894"/>
+</div>
+</div>
+<button class="upscale-btn" id="bg-start-btn">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M3 3l18 18" opacity="0"></path>
+<circle cx="12" cy="8" r="4"></circle>
+<path d="M4 20c0-4 3.5-6.5 8-6.5s8 2.5 8 6.5"></path>
+</svg>
+                            開始去背
+                        </button>
+</div>
+<!-- Progress -->
+<div class="progress-section hidden" id="bg-progress-section">
+<div class="progress-header">
+<span id="bg-progress-message">處理中…</span>
+<span class="progress-right">
+<span id="bg-progress-percent">0%</span>
+<button class="cancel-btn" id="bg-cancel-btn">取消</button>
+</span>
+</div>
+<div class="progress-track">
+<div class="progress-fill" id="bg-progress-fill"></div>
+</div>
+</div>
+<!-- Download -->
+<div class="download-section hidden" id="bg-download-section">
+<div class="download-card">
+<div class="download-info">
+<h3>去背完成！</h3>
+<p id="bg-download-details"></p>
+</div>
+<button class="download-btn" id="bg-download-btn">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+<polyline points="7 10 12 15 17 10"></polyline>
+<line x1="12" x2="12" y1="15" y2="3"></line>
+</svg>
+                                儲存 PNG
+                            </button>
+</div>
+</div>
+<div class="new-video-row hidden" id="bg-new-row">
+<button class="new-video-btn" id="bg-new-btn">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+                            選擇其他圖片
+                        </button>
+</div>
+</section>
+<!-- Batch -->
+<section class="hidden" id="bg-batch-section">
+<div class="batch-toolbar">
+<div>
+<h3 id="bg-batch-title">批次：0 張圖片</h3>
+<p class="batch-sub" id="bg-batch-sub">選擇背景，再開始處理</p>
+</div>
+<div class="batch-actions">
+<button class="upscale-btn" id="bg-batch-start-btn">開始批次處理</button>
+<button class="download-btn hidden" id="bg-batch-zip-btn">儲存全部結果（.zip）</button>
+<button class="new-video-btn" id="bg-batch-reset-btn">取消</button>
+</div>
+</div>
+<div class="options-row batch-options">
+<div class="option-group">
+<label>背景</label>
+<div class="scale-buttons" id="bg-batch-choice-buttons">
+<button class="scale-btn selected" data-bgbatchchoice="transparent">透明</button>
+<button class="scale-btn" data-bgbatchchoice="#ffffff">白色</button>
+<button class="scale-btn" data-bgbatchchoice="custom">自訂</button>
+<input class="hidden" id="bg-batch-color-picker" type="color" value="#00b894"/>
+</div>
+</div>
+<div class="option-group">
+<label>進度</label>
+<span class="output-res" id="bg-batch-progress-label">—</span>
+</div>
+</div>
+<div class="batch-grid" id="bg-batch-grid"></div>
+</section>
+</main>
+<!-- ===================== VOCAL REMOVER TAB ===================== -->
+<main class="tab-content" id="tab-sep">
+<section id="sep-upload-section">
+<div class="dropzone" id="sep-dropzone">
+<input accept="audio/*,video/mp4,.mp3,.wav,.flac,.m4a,.aac,.ogg,.opus,.aiff,.mp4" hidden="" id="sep-file-input" type="file"/>
+<div class="dropzone-content">
+<div class="dropzone-icon">
+<svg fill="none" height="48" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="48">
+<path d="M9 18V6l12-3v12"></path>
+<circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="15" r="3"></circle>
+</svg>
+</div>
+<h3>將歌曲拖曳到這裡</h3>
+<p>AI 將歌曲分成人聲與伴奏</p>
+<span class="dropzone-hint">MP3、WAV、FLAC、M4A、OGG • 製作卡拉 OK 伴奏或純人聲</span>
+</div>
+</div>
+</section>
+<section class="hidden" id="sep-app-section">
+<div class="audio-file-card">
+<div>
+<h3 id="sep-file-name">song.mp3</h3>
+<p class="batch-sub" id="sep-file-info"></p>
+</div>
+<button class="upscale-btn" id="sep-start-btn">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M9 18V6l12-3v12"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="15" r="3"></circle>
+</svg>
+                            開始分離人聲
+                        </button>
+</div>
+<div class="progress-section hidden" id="sep-progress-section">
+<div class="progress-header">
+<span id="sep-progress-message">處理中…</span>
+<span class="progress-right">
+<span id="sep-progress-percent">0%</span>
+<button class="cancel-btn" id="sep-cancel-btn">取消</button>
+</span>
+</div>
+<div class="progress-track"><div class="progress-fill" id="sep-progress-fill"></div></div>
+</div>
+<div class="hidden" id="sep-results">
+<div class="audio-result-row">
+<div class="audio-result-label">原始內容</div>
+<audio controls="" id="sep-original-audio" preload="none"></audio>
+</div>
+<div class="audio-result-row">
+<div class="audio-result-label">人聲</div>
+<audio controls="" id="sep-vocals-audio" preload="none"></audio>
+<button class="download-btn audio-save-btn" id="sep-vocals-save">儲存</button>
+</div>
+<div class="audio-result-row">
+<div class="audio-result-label">伴奏</div>
+<audio controls="" id="sep-inst-audio" preload="none"></audio>
+<button class="download-btn audio-save-btn" id="sep-inst-save">儲存</button>
+</div>
+<div class="new-video-row">
+<button class="download-btn" id="sep-zip-btn">儲存人聲與伴奏（.zip）</button>
+</div>
+</div>
+<div class="new-video-row hidden" id="sep-new-row">
+<button class="new-video-btn" id="sep-new-btn">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+                            選擇其他歌曲
+                        </button>
+</div>
+</section>
+</main>
+<!-- ===================== AUDIO NOISE REMOVER TAB ===================== -->
+<main class="tab-content" id="tab-adenoise">
+<section id="adenoise-upload-section">
+<div class="dropzone" id="adenoise-dropzone">
+<input accept="audio/*,video/mp4,.mp3,.wav,.flac,.m4a,.aac,.ogg,.opus,.aiff,.mp4" hidden="" id="adenoise-file-input" type="file"/>
+<div class="dropzone-content">
+<div class="dropzone-icon">
+<svg fill="none" height="48" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="48">
+<path d="M12 2a4 4 0 014 4v6a4 4 0 01-8 0V6a4 4 0 014-4z"></path>
+<path d="M19 10v2a7 7 0 01-14 0v-2M12 19v3"></path>
+</svg>
+</div>
+<h3>將錄音拖曳到這裡</h3>
+<p>AI 移除語音中的背景雜訊</p>
+<span class="dropzone-hint">適用 Podcast、語音備忘錄、訪談與影片旁白</span>
+</div>
+</div>
+</section>
+<section class="hidden" id="adenoise-app-section">
+<div class="audio-file-card">
+<div>
+<h3 id="adenoise-file-name">recording.mp3</h3>
+<p class="batch-sub" id="adenoise-file-info"></p>
+</div>
+<button class="upscale-btn" id="adenoise-start-btn">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M12 2a4 4 0 014 4v6a4 4 0 01-8 0V6a4 4 0 014-4z"></path>
+<path d="M19 10v2a7 7 0 01-14 0v-2M12 19v3"></path>
+</svg>
+                            移除雜訊
+                        </button>
+</div>
+<div class="progress-section hidden" id="adenoise-progress-section">
+<div class="progress-header">
+<span id="adenoise-progress-message">處理中…</span>
+<span class="progress-right">
+<span id="adenoise-progress-percent">0%</span>
+<button class="cancel-btn" id="adenoise-cancel-btn">取消</button>
+</span>
+</div>
+<div class="progress-track"><div class="progress-fill" id="adenoise-progress-fill"></div></div>
+</div>
+<div class="hidden" id="adenoise-results">
+<div class="audio-result-row">
+<div class="audio-result-label">原始內容</div>
+<audio controls="" id="adenoise-before-audio" preload="none"></audio>
+</div>
+<div class="audio-result-row">
+<div class="audio-result-label">清理結果</div>
+<audio controls="" id="adenoise-after-audio" preload="none"></audio>
+<button class="download-btn audio-save-btn" id="adenoise-save">儲存</button>
+</div>
+</div>
+<div class="new-video-row hidden" id="adenoise-new-row">
+<button class="new-video-btn" id="adenoise-new-btn">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+                            選擇其他錄音
+                        </button>
+</div>
+</section>
+</main>
+<!-- ===================== MASTERING TAB ===================== -->
+<main class="tab-content" id="tab-master">
+<section id="master-upload-section">
+<div class="dropzone" id="master-dropzone">
+<input accept="audio/*,.mp3,.wav,.flac,.m4a,.aac,.ogg,.aiff" hidden="" id="master-file-input" type="file"/>
+<div class="dropzone-content">
+<div class="dropzone-icon">
+<svg fill="none" height="48" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="48">
+<line x1="4" x2="4" y1="21" y2="14"></line><line x1="4" x2="4" y1="10" y2="3"></line>
+<line x1="12" x2="12" y1="21" y2="12"></line><line x1="12" x2="12" y1="8" y2="3"></line>
+<line x1="20" x2="20" y1="21" y2="16"></line><line x1="20" x2="20" y1="12" y2="3"></line>
+<line x1="1" x2="7" y1="14" y2="14"></line><line x1="9" x2="15" y1="8" y2="8"></line><line x1="17" x2="23" y1="16" y2="16"></line>
+</svg>
+</div>
+<h3>將音樂拖曳到這裡</h3>
+<p>在此視窗內一鍵完成自動母帶處理</p>
+<span class="dropzone-hint">分析音訊、自動選擇設定，並說明每項調整</span>
+</div>
+</div>
+</section>
+<section class="hidden" id="master-app-section">
+<div class="audio-file-card">
+<div>
+<h3 id="master-file-name">track.wav</h3>
+<p class="batch-sub" id="master-file-info"></p>
+</div>
+<button class="upscale-btn" disabled="" id="master-start-btn">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<polygon points="5 3 19 12 5 21 5 3"></polygon>
+</svg>
+                            開始母帶處理
+                        </button>
+</div>
+<div class="master-panel hidden" id="master-measured">
+<h4>分析數據</h4>
+<table class="kv-table" id="master-measured-table"></table>
+<h4 class="mt">頻譜平衡</h4>
+<div class="bars" id="master-bars-before"></div>
+<div class="barlabels" id="master-barlabels-before"></div>
+<p class="master-warn hidden" id="master-hot"></p>
+</div>
+<div class="master-panel hidden" id="master-tuning">
+<div class="tuning-head">
+<h4>細部調整</h4>
+<span class="batch-sub">先採用分析後的建議值。調整後可重新處理，並以 A／B 比較結果。</span>
+<button class="new-video-btn tuning-reset" id="master-reset-tuning">還原自動設定</button>
+</div>
+<div class="tuning-grid">
+<label class="tune">
+<span class="tune-name">音色目標</span>
+<select class="batch-select" id="tune-curve">
+<option value="neutral">中性</option>
+<option value="bassFwd">低音突出</option>
+<option value="acoustic">開闊／原音</option>
+<option value="warm">溫暖</option>
+</select>
+</label>
+<label class="tune">
+<span class="tune-name">音色修正強度 <b id="tune-eq-val">60%</b></span>
+<input id="tune-eq" max="100" min="0" step="5" type="range" value="60"/>
+<span class="tune-hint">0% 保留原本音色平衡</span>
+</label>
+<label class="tune">
+<span class="tune-name">低音 <b id="tune-bass-val">+0.6 dB</b></span>
+<input id="tune-bass" max="4" min="-4" step="0.5" type="range" value="0.6"/>
+<span class="tune-hint">70 Hz 低頻棚架等化</span>
+</label>
+<label class="tune">
+<span class="tune-name">高音／空氣感 <b id="tune-treble-val">+1.0 dB</b></span>
+<input id="tune-treble" max="4" min="-4" step="0.5" type="range" value="1"/>
+<span class="tune-hint">9 kHz 高頻棚架等化 — 若齒音太明顯，可降低此值</span>
+</label>
+<label class="tune">
+<span class="tune-name">抑制嘶聲與齒音 <b id="tune-deess-val">0.0 dB</b></span>
+<input id="tune-deess" max="8" min="0" step="0.5" type="range" value="0"/>
+<span class="tune-hint">抑制 5–9 kHz 附近刺耳的齒音與嘶聲</span>
+</label>
+<label class="tune">
+<span class="tune-name">響度目標 <b id="tune-lufs-val">-14 LUFS</b></span>
+<input id="tune-lufs" max="-8" min="-18" step="1" type="range" value="-14"/>
+<span class="tune-hint">-16 適用 Apple Music · -14 適用 Spotify／YouTube · -10 為舞曲高響度</span>
+</label>
+<label class="tune">
+<span class="tune-name">立體聲寬度 <b id="tune-width-val">×1.15</b></span>
+<input id="tune-width" max="1.5" min="1" step="0.05" type="range" value="1.15"/>
+<span class="tune-hint">×1.00 保持原本立體聲寬度</span>
+</label>
+</div>
+</div>
+<div class="progress-section hidden" id="master-progress-section">
+<div class="progress-header">
+<span id="master-progress-message">處理中…</span>
+<span id="master-progress-percent">0%</span>
+</div>
+<div class="progress-track"><div class="progress-fill" id="master-progress-fill"></div></div>
+</div>
+<div class="hidden" id="master-results">
+<div class="master-panel">
+<h4>音訊分析與調整依據</h4>
+<div class="reasons" id="master-why-list"></div>
+<table class="kv-table" id="master-plan-table"></table>
+<h4 class="mt">處理前後對照</h4>
+<table class="kv-table" id="master-delta-table"></table>
+<h4 class="mt">處理後的頻譜平衡</h4>
+<div class="bars" id="master-bars-after"></div>
+<div class="barlabels" id="master-barlabels-after"></div>
+<canvas class="master-wave" id="master-wave"></canvas>
+<div class="transport">
+<button class="upscale-btn transport-btn" id="master-play">播放</button>
+<div class="ab">
+<button id="master-ab-a">A · 原始音訊</button>
+<button class="on" id="master-ab-b">B · 母帶處理後</button>
+</div>
+<label class="face-toggle"><input checked="" id="master-matched" type="checkbox"/> 以相同響度比較</label>
+<span class="master-time" id="master-time">0:00 / 0:00</span>
+</div>
+<p class="master-note" id="master-note"></p>
+<div class="master-actions">
+<button class="download-btn" id="master-save">儲存 24 位元 WAV</button>
+</div>
+</div>
+</div>
+<div class="new-video-row hidden" id="master-new-row">
+<button class="new-video-btn" id="master-new-btn">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+                            選擇其他音樂
+                        </button>
+</div>
+</section>
+</main>
+<!-- ===================== TAG EDITOR TAB ===================== -->
+<main class="tab-content" id="tab-tags">
+<section id="tags-upload-section">
+<div class="dropzone" id="tags-dropzone">
+<input accept=".mp3,.wav,audio/mpeg,audio/wav" hidden="" id="tags-file-input" type="file"/>
+<div class="dropzone-content">
+<div class="dropzone-icon">
+<svg fill="none" height="48" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="48">
+<path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"></path>
+<line x1="7" x2="7.01" y1="7" y2="7"></line>
+</svg>
+</div>
+<h3>將 MP3 或 WAV 拖曳到這裡</h3>
+<p>檢視所有中繼資料標籤，並可無損移除</p>
+<span class="dropzone-hint">只修改標籤資料 — 音訊內容逐位元保持相同</span>
+</div>
+</div>
+</section>
+<section class="hidden" id="tags-app-section">
+<div class="audio-file-card">
+<div>
+<h3 id="tags-file-name">file.mp3</h3>
+<p class="batch-sub" id="tags-file-info"></p>
+</div>
+<button class="upscale-btn" id="tags-clean-btn">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+                            開始處理檔案
+                        </button>
+</div>
+<div class="master-panel">
+<h4>要寫入的標籤</h4>
+<div class="tag-modes">
+<label class="face-toggle"><input checked="" name="tags-mode" type="radio" value="strip"/> 移除全部標籤</label>
+<label class="face-toggle"><input name="tags-mode" type="radio" value="write"/> 改用我填寫的標籤</label>
+</div>
+<div class="tag-fields hidden" id="tags-fields">
+<label>標題<input data-tagfield="title" type="text"/></label>
+<label>演出者<input data-tagfield="artist" type="text"/></label>
+<label>專輯<input data-tagfield="album" type="text"/></label>
+<label>年份<input data-tagfield="year" type="text"/></label>
+<label>曲風<input data-tagfield="genre" type="text"/></label>
+<label>曲目編號<input data-tagfield="track" type="text"/></label>
+<label class="tag-field-wide">註解<input data-tagfield="comment" type="text"/></label>
+</div>
+</div>
+<div class="master-panel">
+<h4 id="tags-before-title">檔案內的標籤</h4>
+<table class="tags-table" id="tags-before-table"></table>
+</div>
+<div class="hidden" id="tags-results">
+<div class="master-panel">
+<h4>處理結果</h4>
+<div class="tag-map" id="tags-map"></div>
+<table class="kv-table" id="tags-result-table"></table>
+<h4 class="mt" id="tags-after-title">處理後的標籤</h4>
+<table class="tags-table" id="tags-after-table"></table>
+<div class="master-actions">
+<button class="download-btn" id="tags-save">儲存降噪檔案</button>
+</div>
+</div>
+</div>
+<div class="new-video-row hidden" id="tags-new-row">
+<button class="new-video-btn" id="tags-new-btn">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+                            選擇其他檔案
+                        </button>
+</div>
+</section>
+</main>
+<!-- ===================== DENOISE & DEBLUR TAB ===================== -->
+<main class="tab-content" id="tab-clean">
+<section id="clean-upload-section">
+<div class="dropzone" id="clean-dropzone">
+<input accept="image/png,image/jpeg,image/webp,image/bmp,image/tiff,.png,.jpg,.jpeg,.webp,.bmp,.tiff,.tif" hidden="" id="clean-file-input" multiple="" type="file"/>
+<div class="dropzone-content">
+<div class="dropzone-icon">
+<svg fill="none" height="48" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="48">
+<path d="M12 3l1.9 5.8L20 10l-6.1 1.2L12 17l-1.9-5.8L4 10l6.1-1.2z"></path>
+<path d="M19 17l.7 2.3L22 20l-2.3.7L19 23l-.7-2.3L16 20l2.3-.7z"></path>
+</svg>
+</div>
+<h3>將有顆粒、雜點或模糊的照片拖曳到這裡</h3>
+<p>或按一下選擇檔案 — 可多選並批次處理</p>
+<span class="dropzone-hint">PNG、JPG、WebP、BMP、TIFF • 每個檔案上限 50 MB</span>
+</div>
+</div>
+</section>
+<section class="hidden" id="clean-app-section">
+<div class="image-compare-container">
+<div class="image-panel">
+<div class="panel-header">
+<span class="panel-label">原始內容</span>
+<span class="panel-badge" id="clean-original-res"></span>
+</div>
+<div class="image-wrapper">
+<img alt="原始圖片" id="clean-original"/>
+</div>
+</div>
+<div class="image-panel">
+<div class="panel-header">
+<span class="panel-label">處理結果</span>
+<span class="panel-badge" id="clean-result-res"></span>
+</div>
+<div class="image-wrapper">
+<img alt="Result image" class="hidden" id="clean-result"/>
+<div class="output-placeholder" id="clean-output-placeholder">
+<svg fill="none" height="40" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="40">
+<path d="M12 3l1.9 5.8L20 10l-6.1 1.2L12 17l-1.9-5.8L4 10l6.1-1.2z"></path>
+</svg>
+<p>清理後的圖片會顯示在這裡</p>
+</div>
+</div>
+</div>
+</div>
+<div class="options-row">
+<div class="option-group">
+<label>修復方式</label>
+<div class="scale-buttons" id="clean-mode-buttons">
+<button class="scale-btn selected" data-cleanmode="denoise">移除雜訊</button>
+<button class="scale-btn" data-cleanmode="deblur">去除模糊</button>
+</div>
+</div>
+<div class="option-group">
+<label>適用情境</label>
+<span class="output-res" id="clean-mode-hint">改善低光照片顆粒與 ISO 雜訊</span>
+</div>
+<button class="upscale-btn" id="clean-start-btn">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M12 3l1.9 5.8L20 10l-6.1 1.2L12 17l-1.9-5.8L4 10l6.1-1.2z"></path>
+</svg>
+                            開始清理圖片
+                        </button>
+</div>
+<div class="progress-section hidden" id="clean-progress-section">
+<div class="progress-header">
+<span id="clean-progress-message">處理中…</span>
+<span class="progress-right">
+<span id="clean-progress-percent">0%</span>
+<button class="cancel-btn" id="clean-cancel-btn">取消</button>
+</span>
+</div>
+<div class="progress-track">
+<div class="progress-fill" id="clean-progress-fill"></div>
+</div>
+</div>
+<div class="download-section hidden" id="clean-download-section">
+<div class="download-card">
+<div class="download-info">
+<h3>圖片清理完成！</h3>
+<p id="clean-download-details"></p>
+</div>
+<button class="download-btn" id="clean-download-btn">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+<polyline points="7 10 12 15 17 10"></polyline>
+<line x1="12" x2="12" y1="15" y2="3"></line>
+</svg>
+                                儲存 PNG
+                            </button>
+</div>
+</div>
+<div class="new-video-row hidden" id="clean-new-row">
+<button class="new-video-btn" id="clean-new-btn">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+                            選擇其他圖片
+                        </button>
+</div>
+</section>
+<section class="hidden" id="clean-batch-section">
+<div class="batch-toolbar">
+<div>
+<h3 id="clean-batch-title">批次：0 張圖片</h3>
+<p class="batch-sub" id="clean-batch-sub">選擇修復方式，再開始處理</p>
+</div>
+<div class="batch-actions">
+<button class="upscale-btn" id="clean-batch-start-btn">開始批次處理</button>
+<button class="download-btn hidden" id="clean-batch-zip-btn">儲存全部結果（.zip）</button>
+<button class="new-video-btn" id="clean-batch-reset-btn">取消</button>
+</div>
+</div>
+<div class="options-row batch-options">
+<div class="option-group">
+<label>修復方式</label>
+<div class="scale-buttons" id="clean-batch-mode-buttons">
+<button class="scale-btn selected" data-cleanbatchmode="denoise">移除雜訊</button>
+<button class="scale-btn" data-cleanbatchmode="deblur">去除模糊</button>
+</div>
+</div>
+<div class="option-group">
+<label>進度</label>
+<span class="output-res" id="clean-batch-progress-label">—</span>
+</div>
+</div>
+<div class="batch-grid" id="clean-batch-grid"></div>
+</section>
+</main>
+<!-- ===================== MAGIC ERASER TAB ===================== -->
+<main class="tab-content" id="tab-erase">
+<section id="erase-upload-section">
+<div class="dropzone" id="erase-dropzone">
+<input accept="image/png,image/jpeg,image/webp,image/bmp,image/tiff,.png,.jpg,.jpeg,.webp,.bmp,.tiff,.tif" hidden="" id="erase-file-input" type="file"/>
+<div class="dropzone-content">
+<div class="dropzone-icon">
+<svg fill="none" height="48" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="48">
+<path d="M20 20H8.5L3 14.5a2 2 0 010-2.8l8.7-8.7a2 2 0 012.8 0l6 6a2 2 0 010 2.8L13 19.3"></path>
+<path d="M8 9l7 7"></path>
+</svg>
+</div>
+<h3>將圖片拖曳到這裡</h3>
+<p>再塗抹想移除的物件</p>
+<span class="dropzone-hint">可移除路人、電線與雜物 • 上限 50 MB</span>
+</div>
+</div>
+</section>
+<section class="hidden" id="erase-app-section">
+<div class="erase-editor">
+<div class="erase-canvas-wrap" id="erase-canvas-wrap">
+<canvas id="erase-canvas"></canvas>
+<canvas id="erase-overlay"></canvas>
+</div>
+<div class="erase-toolbar">
+<div class="option-group">
+<label>筆刷大小</label>
+<input class="erase-slider" id="erase-brush-size" max="120" min="8" type="range" value="36"/>
+</div>
+<button class="new-video-btn" id="erase-clear-btn">清除塗抹</button>
+<button class="new-video-btn" disabled="" id="erase-undo-btn">復原上次移除</button>
+<button class="upscale-btn" id="erase-start-btn">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M20 20H8.5L3 14.5a2 2 0 010-2.8l8.7-8.7a2 2 0 012.8 0l6 6a2 2 0 010 2.8L13 19.3"></path>
+</svg>
+                                移除物件
+                            </button>
+</div>
+<p class="erase-hint">塗抹想移除的物件，再按「移除」。可重複操作多次。</p>
+</div>
+<div class="progress-section hidden" id="erase-progress-section">
+<div class="progress-header">
+<span id="erase-progress-message">處理中…</span>
+<span class="progress-right">
+<span id="erase-progress-percent">0%</span>
+<button class="cancel-btn" id="erase-cancel-btn">取消</button>
+</span>
+</div>
+<div class="progress-track">
+<div class="progress-fill" id="erase-progress-fill"></div>
+</div>
+</div>
+<div class="download-section hidden" id="erase-download-section">
+<div class="download-card">
+<div class="download-info">
+<h3>物件已移除！</h3>
+<p id="erase-download-details">可繼續塗抹並移除其他物件，或儲存圖片。</p>
+</div>
+<button class="download-btn" id="erase-download-btn">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+<polyline points="7 10 12 15 17 10"></polyline>
+<line x1="12" x2="12" y1="15" y2="3"></line>
+</svg>
+                                儲存 PNG
+                            </button>
+</div>
+</div>
+<div class="new-video-row hidden" id="erase-new-row">
+<button class="new-video-btn" id="erase-new-btn">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+                            選擇其他圖片
+                        </button>
+</div>
+</section>
+</main>
+<!-- ===================== OLD PHOTO RESTORE TAB ===================== -->
+<main class="tab-content" id="tab-restore">
+<section id="restore-upload-section">
+<div class="dropzone" id="restore-dropzone">
+<input accept="image/png,image/jpeg,image/webp,image/bmp,image/tiff,.png,.jpg,.jpeg,.webp,.bmp,.tiff,.tif" hidden="" id="restore-file-input" type="file"/>
+<div class="dropzone-content">
+<div class="dropzone-icon">
+<svg fill="none" height="48" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="48">
+<circle cx="12" cy="12" r="9"></circle>
+<polyline points="12 7 12 12 15.5 14"></polyline>
+</svg>
+</div>
+<h3>將老照片拖曳到這裡</h3>
+<p>黑白上色、修復臉部、強化細節</p>
+<span class="dropzone-hint">PNG、JPG、WebP、BMP、TIFF • 上限 50 MB</span>
+</div>
+</div>
+</section>
+<section class="hidden" id="restore-app-section">
+<div class="image-compare-container">
+<div class="image-panel">
+<div class="panel-header">
+<span class="panel-label">原始內容</span>
+<span class="panel-badge" id="restore-original-res"></span>
+</div>
+<div class="image-wrapper">
+<img alt="原始照片" id="restore-original"/>
+</div>
+</div>
+<div class="image-panel">
+<div class="panel-header">
+<span class="panel-label">修復結果</span>
+<span class="panel-badge" id="restore-result-res"></span>
+</div>
+<div class="image-wrapper">
+<img alt="修復後的照片" class="hidden" id="restore-result"/>
+<div class="output-placeholder" id="restore-output-placeholder">
+<svg fill="none" height="40" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="40">
+<circle cx="12" cy="12" r="9"></circle>
+<polyline points="12 7 12 12 15.5 14"></polyline>
+</svg>
+<p>修復後的照片會顯示在這裡</p>
+</div>
+</div>
+</div>
+</div>
+<div class="options-row">
+<div class="option-group">
+<label>修復</label>
+<div class="restore-toggles">
+<label class="face-toggle"><input checked="" id="restore-colorize" type="checkbox"/> 黑白照片上色</label>
+                                {% if face_restore %}<label class="face-toggle"><input id="restore-face" type="checkbox"/> 修復臉部</label>{% endif %}
+                                {% if server_ai %}<label class="face-toggle"><input id="restore-enhance" type="checkbox"/> 強化細節</label>{% endif %}
+                            </div>
+</div>
+<button class="upscale-btn" id="restore-start-btn">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<circle cx="12" cy="12" r="9"></circle>
+<polyline points="12 7 12 12 15.5 14"></polyline>
+</svg>
+                            開始修復照片
+                        </button>
+</div>
+<div class="progress-section hidden" id="restore-progress-section">
+<div class="progress-header">
+<span id="restore-progress-message">處理中…</span>
+<span class="progress-right">
+<span id="restore-progress-percent">0%</span>
+<button class="cancel-btn" id="restore-cancel-btn">取消</button>
+</span>
+</div>
+<div class="progress-track">
+<div class="progress-fill" id="restore-progress-fill"></div>
+</div>
+</div>
+<div class="download-section hidden" id="restore-download-section">
+<div class="download-card">
+<div class="download-info">
+<h3>照片修復完成！</h3>
+<p id="restore-download-details"></p>
+</div>
+<button class="download-btn" id="restore-download-btn">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+<polyline points="7 10 12 15 17 10"></polyline>
+<line x1="12" x2="12" y1="15" y2="3"></line>
+</svg>
+                                儲存 PNG
+                            </button>
+</div>
+</div>
+<div class="new-video-row hidden" id="restore-new-row">
+<button class="new-video-btn" id="restore-new-btn">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+                            選擇其他照片
+                        </button>
+</div>
+</section>
+</main>
+<!-- ===================== VIDEO TOOLS TAB ===================== -->
+<main class="tab-content" id="tab-vtools">
+<section id="vtools-upload-section">
+<div class="dropzone" id="vtools-dropzone">
+<input accept="video/mp4,video/quicktime,video/webm,video/x-matroska,video/avi,.mp4,.mov,.webm,.mkv,.avi" hidden="" id="vtools-file-input" type="file"/>
+<div class="dropzone-content">
+<div class="dropzone-icon">
+<svg fill="none" height="48" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="48">
+<rect height="16" rx="2" width="20" x="2" y="4"></rect>
+<path d="M2 9h20M7 4v5M17 4v5"></path>
+<circle cx="12" cy="15" r="2.5"></circle>
+</svg>
+</div>
+<h3>將影片拖曳到這裡</h3>
+<p>清理聲音、移除配樂、壓縮影片或製作 GIF</p>
+<span class="dropzone-hint">MP4、MOV、WebM、MKV • 上限 2 GB</span>
+</div>
+</div>
+</section>
+<section class="hidden" id="vtools-app-section">
+<div class="audio-file-card">
+<div>
+<h3 id="vtools-file-name">video.mp4</h3>
+<p class="batch-sub" id="vtools-file-info"></p>
+</div>
+</div>
+<div class="options-row vtools-tools">
+<div class="option-group">
+<label>工具</label>
+<div class="scale-buttons" id="vtools-mode-buttons">
+<button class="scale-btn selected" data-vtool="denoise">移除雜訊</button>
+<button class="scale-btn" data-vtool="remove_music">移除配樂</button>
+<button class="scale-btn" data-vtool="remove_voice">移除人聲</button>
+<button class="scale-btn" data-vtool="compress">壓縮影片</button>
+<button class="scale-btn" data-vtool="gif">製作 GIF</button>
+</div>
+</div>
+</div>
+<div class="options-row">
+<div class="option-group hidden" id="vtools-compress-opts">
+<label>目標檔案大小</label>
+<select class="batch-select" id="vtools-target-mb">
+<option value="10">10 MB（Discord）</option>
+<option selected="" value="25">25 MB（電子郵件、Discord Nitro Basic）</option>
+<option value="50">50 MB</option>
+<option value="100">100 MB（WhatsApp）</option>
+<option value="200">200 MB</option>
+</select>
+</div>
+<div class="option-group hidden" id="vtools-gif-opts">
+<label>GIF 選項</label>
+<div style="display:flex; gap:8px">
+<select class="batch-select" id="vtools-gif-fps">
+<option value="10">每秒 10 幀</option>
+<option selected="" value="15">每秒 15 幀</option>
+<option value="20">每秒 20 幀</option>
+</select>
+<select class="batch-select" id="vtools-gif-width">
+<option value="320">320 像素</option>
+<option selected="" value="480">480 像素</option>
+<option value="640">640 像素</option>
+</select>
+</div>
+</div>
+<div class="option-group">
+<label>關於</label>
+<span class="vtools-hint" id="vtools-hint">AI 移除影片音軌中的背景雜訊</span>
+</div>
+<button class="upscale-btn" id="vtools-start-btn">開始處理</button>
+</div>
+<div class="progress-section hidden" id="vtools-progress-section">
+<div class="progress-header">
+<span id="vtools-progress-message">處理中…</span>
+<span class="progress-right">
+<span id="vtools-progress-percent">0%</span>
+<button class="cancel-btn" id="vtools-cancel-btn">取消</button>
+</span>
+</div>
+<div class="progress-track"><div class="progress-fill" id="vtools-progress-fill"></div></div>
+</div>
+<div class="hidden" id="vtools-results">
+<div class="video-panel" style="margin-bottom:14px">
+<div class="panel-header">
+<span class="panel-label" id="vtools-result-label">處理結果</span>
+<span class="panel-badge" id="vtools-result-size"></span>
+</div>
+<video class="hidden" controls="" id="vtools-result-video" playsinline="" style="width:100%"></video>
+<img alt="GIF 結果" class="hidden" id="vtools-result-gif" style="width:100%"/>
+</div>
+<div class="new-video-row">
+<button class="download-btn" id="vtools-save">儲存結果</button>
+</div>
+</div>
+<div class="new-video-row hidden" id="vtools-new-row">
+<button class="new-video-btn" id="vtools-new-btn">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+                            選擇其他影片
+                        </button>
+</div>
+</section>
+</main>
+</div><!-- /content-area -->
+</div><!-- /app-layout -->
+<dialog id="ng-help-dialog" aria-labelledby="ng-help-title"><div id="tab-help"></div></dialog>
+<footer>
+<p>NextGenUp — 開放原始碼 AI 圖片與影片超分，由 <a class="ext-link footer-link" href="https://matily.org">matily.org</a> 開發。</p>
+</footer>
+<!-- Hidden canvas for Pro mode frame extraction -->
+<canvas id="frame-canvas" style="display:none"></canvas>
+<canvas id="output-canvas" style="display:none"></canvas>
+<!-- Hidden canvas for image upscaling -->
+<canvas id="img-input-canvas" style="display:none"></canvas>
+<canvas id="img-output-canvas" style="display:none"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0/dist/ort.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script src="/static/js/pro-upscaler.js"></script>
+<script src="/static/js/app.js"></script>
+<script src="/static/js/image-app.js"></script>
+<script src="/static/js/bg-app.js"></script>
+<script src="/static/js/tools-app.js"></script>
+<script src="/static/js/vendor/remaster-lib.js"></script>
+<script src="/static/js/audio-app.js"></script>
+<script src="/static/js/vtools-app.js"></script>
+<script src="/static/js/help-app.js"></script>
+</body>
+</html>

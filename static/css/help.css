@@ -1,0 +1,73 @@
+/* Preserve the app's existing dark palette and system font; favor readable instructions. */
+.sidebar-nav { min-height: 0; overflow-y: auto; flex: 1; color-scheme: dark; scrollbar-width: thin; scrollbar-color: #55556a var(--bg-card); }
+.sidebar-footer { flex-shrink: 0; }
+.ng-help-header, .ng-tool-help, #tab-help button { font: inherit; cursor: pointer; }
+.ng-help-header { border: 1px solid var(--border-hover); border-radius: 8px; background: var(--bg-card); color: #d5d2f6; padding: 7px 12px; font-size: 13px; white-space: nowrap; }
+.ng-tool-help-row { display: flex; justify-content: flex-end; margin: -12px 0 14px; }
+.ng-tool-help { padding: 5px 12px; border: 1px solid var(--border-hover); border-radius: 6px; background: var(--bg-card); color: #bdb5ff; font-size: 13px; }
+#nav-help { display: flex; align-items: center; width: 100%; padding: 12px 14px; border: 0; border-radius: var(--radius-sm); background: transparent; color: #c6c0ff; font: inherit; font-size: 14px; font-weight: 500; text-align: left; cursor: pointer; }
+#nav-help:hover { background: var(--bg-card-hover); }
+#ng-help-dialog { width: min(1160px, calc(100vw - 96px)); height: min(820px, calc(100dvh - 96px)); max-width: none; max-height: none; margin: auto; padding: 0; border: 1px solid #454358; border-radius: 16px; background: var(--bg); color: var(--text); box-shadow: 0 24px 80px #0009; overflow: hidden; }
+#ng-help-dialog::backdrop { background: rgb(0 0 0 / .65); }
+#tab-help { height: 100%; display: flex; flex-direction: column; min-height: 0; }
+.ng-help-heading { position: relative; flex-shrink: 0; padding: 22px 120px 18px 24px; border-bottom: 1px solid var(--border-hover); }
+.ng-help-heading h2 { font-size: 24px; letter-spacing: -.02em; line-height: 1.4; }
+.ng-help-heading p { color: #b9b9cc; margin-top: 8px; font-size: 14px; }
+#ng-help-close { position: absolute; top: 22px; right: 24px; padding: 7px 12px; border: 1px solid #55556a; border-radius: 7px; background: var(--bg-card); color: #e4e4eb; font-size: 13px; white-space: nowrap; }
+.ng-help-layout { display: grid; grid-template-columns: 238px minmax(0,1fr); gap: 24px; padding: 20px 24px 24px; flex: 1; min-height: 0; overflow: hidden; }
+.ng-help-index { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 12px; min-height: 0; overflow-y: auto; color-scheme: dark; scrollbar-width: thin; scrollbar-color: #55556a var(--bg-card); }
+.ng-help-index label { display: block; color: #e4e4eb; font-size: 13px; margin: 0 4px 8px; }
+.ng-help-search-row { display: flex; gap: 6px; }
+#ng-help-search { width: 100%; min-width: 0; border: 1px solid #55556a; background: var(--bg); border-radius: 6px; padding: 9px 8px; font: inherit; color: #e4e4eb; font-size: 13px; }
+#ng-help-search::placeholder { color: #a8a8bd; }
+#ng-help-clear { border: 0; background: transparent; color: #c7c0ff; font-size: 12px !important; flex-shrink: 0; padding: 4px; }
+#ng-help-count { margin: 9px 4px 16px; color: #b9b9cc; font-size: 12px; }
+.ng-help-group + .ng-help-group { margin-top: 22px; }
+.ng-help-group > h4 { font-size: 15px; font-weight: 700; color: #eeeaff; padding: 8px 11px; margin: 0 0 8px; line-height: 1.4; letter-spacing: .08em; background: #242131; border-left: 3px solid #b7a7ff; border-radius: 5px; }
+.ng-help-group button { display: block; width: 100%; text-align: left; color: #cccbd8; border: 0; background: transparent; padding: 9px; border-radius: 6px; font-size: 13px !important; line-height: 1.5; }
+.ng-help-group button:hover { background: var(--bg-card-hover); }
+.ng-help-group button[aria-current] { color: #e4deff; background: #29223e; box-shadow: inset 3px 0 #9d8cff; }
+.ng-help-article { min-width: 0; min-height: 0; overflow-y: auto; padding: 0 12px 18px 0; font-size: 14px; line-height: 1.85; color: #cccbd8; color-scheme: dark; scrollbar-width: thin; scrollbar-color: #55556a var(--bg); }
+.ng-help-article h3 { color: var(--text); font-size: 23px; line-height: 1.5; }
+.ng-help-article h4 { color: var(--text); font-weight: 600; font-size: 15px; line-height: 1.65; }
+.ng-help-article-head > p { margin-top: 10px; }
+.ng-help-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 24px; }
+.ng-help-actions button, .ng-help-empty button { border: 1px solid #55556a; border-radius: 7px; padding: 8px 14px; background: var(--bg-card); color: var(--text); font-size: 13px !important; }
+.ng-help-actions .ng-help-primary { background: #6c5ce7; color: #fff; border-color: #8d7ff2; }
+.ng-help-steps { padding-left: 26px; margin: 0 0 26px; }
+.ng-help-steps li { padding-left: 7px; margin-bottom: 20px; }
+.ng-help-steps li::marker { color: #c7c0ff; font-weight: 600; }
+.ng-help-steps p { margin-top: 4px; }
+.ng-help-table-wrap { overflow-x: auto; margin: 22px 0; border: 1px solid #353546; border-radius: 8px; }
+.ng-help-table-wrap table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.ng-help-table-wrap th { background: var(--bg-card); color: var(--text); font-weight: 600; }
+.ng-help-table-wrap td, .ng-help-table-wrap th { padding: 11px 13px; text-align: left; vertical-align: top; }
+.ng-help-table-wrap tbody tr + tr td { border-top: 1px solid var(--border); }
+.ng-help-notes { padding: 16px 20px; border-left: 3px solid #9d8cff; background: var(--bg-card); margin: 26px 0; }
+.ng-help-notes p { margin-top: 10px; }
+.ng-help-article figure { margin: 26px 0; }
+.ng-help-article figure img { display: block; width: 100%; height: auto; border: 1px solid var(--border-hover); border-radius: 8px; }
+.ng-help-article figcaption { margin-top: 8px; color: #b9b9cc; font-size: 12px; }
+.ng-help-faq details { padding: 16px 0; border-bottom: 1px solid var(--border); }
+.ng-help-faq summary { cursor: pointer; color: var(--text); font-weight: 600; }
+.ng-help-faq details p { padding: 10px 0 2px 18px; }
+.ng-help-related { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 8px; }
+.ng-help-related h4 { width: 100%; }
+.ng-help-related button { border: 1px solid var(--border-hover); background: var(--bg-card); border-radius: 6px; padding: 7px 11px; color: #c7c0ff; font-size: 13px !important; }
+.ng-help-empty { padding: 36px 8px; }
+.ng-help-empty p { margin: 12px 0 20px; }
+#tab-help button:hover, .ng-help-header:hover, .ng-tool-help:hover { border-color: #9d8cff; }
+#tab-help :focus-visible, .ng-help-header:focus-visible, .ng-tool-help:focus-visible { outline: 2px solid #bdb5ff; outline-offset: 3px; }
+@media (max-width: 1000px) { .ng-help-layout { grid-template-columns: 210px minmax(0,1fr); gap: 20px; } }
+@media (max-width: 767px) {
+  #ng-help-dialog { width: calc(100vw - 32px); height: calc(100dvh - 64px); border-radius: 12px; }
+  .ng-help-heading { padding: 18px 96px 14px 16px; }
+  #ng-help-close { top: 18px; right: 16px; padding: 6px 9px; }
+  .ng-help-layout { grid-template-columns: minmax(0,1fr); grid-template-rows: minmax(180px, 32%) minmax(0,1fr); gap: 16px; padding: 16px; }
+  .ng-help-heading h2 { font-size: 20px; }
+  .ng-help-heading p { font-size: 12px; }
+  .ng-help-article h3 { font-size: 21px; }
+  .ng-help-header { padding: 6px 8px; font-size: 12px; }
+  .ng-help-table-wrap td, .ng-help-table-wrap th { padding: 9px 10px; }
+}
+@media (prefers-reduced-motion: reduce) { #tab-help *, .ng-help-header, .ng-tool-help { transition: none; scroll-behavior: auto; } }
