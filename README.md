@@ -29,6 +29,8 @@ Windows ARM／32 位元與 Linux 暫未提供受測安裝版本。Mac 建置以 
 
 [下載及建置檢查](https://github.com/jacky391977/nextgenup-zh-tw/releases) · [自動測試紀錄](https://github.com/jacky391977/nextgenup-zh-tw/actions/workflows/release.yml)
 
+![繁體中文版實際操作教學彈窗](assets/screens/zh-help.png)
+
 ## 安裝會做什麼
 
 1. 自動辨識 Mac 晶片或 Windows x64。
